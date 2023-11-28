@@ -1,9 +1,9 @@
 import { FiShoppingCart, FiTag } from "react-icons/fi";
 import React from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import discount1 from "/assets/discount1.png";
@@ -15,17 +15,17 @@ export default function Carousel() {
     {
       id: 1,
       image: discount1,
-      link: "/page1",
+      link: "/product",
     },
     {
       id: 2,
       image: discount2,
-      link: "/page2", 
+      link: "/product",
     },
     {
       id: 3,
       image: discount3,
-      link: "/page3",
+      link: "/product",
     },
   ];
 
@@ -47,7 +47,7 @@ export default function Carousel() {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <a href={slide.link}>
-              <div className="flex flex-col items-center bg-red-500 shadow-md mx-16">
+              <div className="flex flex-col items-center shadow-md mx-16">
                 <div></div>
                 <img src={slide.image} alt={slide.title} />
               </div>
