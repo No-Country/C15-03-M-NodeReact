@@ -59,9 +59,12 @@ export default function Navbar() {
               </div>
             </div>
 
-            <button className=" p-2">Ingresar</button>
-            <Link to="/signup">
-              <button className="bg-gray-600 hover:bg-gray-500 p-2 rounded font-bold">
+            <Link to="/signin">
+              <button className="p-2">
+                Ingresar
+              </button>
+            </Link>               <Link to="/signup">
+              <button className="bg-blue-600 hover:bg-blue-800 p-2 rounded font-bold">
                 Registrarse
               </button>
             </Link>
