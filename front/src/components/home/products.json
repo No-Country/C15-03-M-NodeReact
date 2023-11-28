@@ -3,7 +3,7 @@
       "id": 1,
       "title": "phone1",
       "description": "phone1.",
-      "image": "../../assets/discount1.png",
+      "image": "/assets/phone1.png",
       "url": "/phone1"
     },
     {

@@ -6,9 +6,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-import discount1 from "../../assets/discount1.png";
-import discount2 from "../../assets/discount2.png";
-import discount3 from "../../assets/discount3.png";
+import discount1 from "/assets/discount1.png";
+import discount2 from "/assets/discount2.png";
+import discount3 from "/assets/discount3.png";
 
 export default function Carousel() {
   const slides = [

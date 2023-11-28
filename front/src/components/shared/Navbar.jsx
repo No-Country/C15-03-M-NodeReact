@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { RiSearchLine, RiShoppingCartLine } from "react-icons/ri";
-import logoImage from "../../assets/logo.png";
+import logoImage from "/assets/logo.png";
 
 export default function Navbar() {
   const categories = [
