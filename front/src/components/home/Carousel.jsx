@@ -1,33 +1,15 @@
-import { FiShoppingCart, FiTag } from "react-icons/fi";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
+import Products from "./products.json";
+
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-import discount1 from "/assets/discount1.png";
-import discount2 from "/assets/discount2.png";
-import discount3 from "/assets/discount3.png";
 
 export default function Carousel() {
-  const slides = [
-    {
-      id: 1,
-      image: discount1,
-      link: "/product",
-    },
-    {
-      id: 2,
-      image: discount2,
-      link: "/product",
-    },
-    {
-      id: 3,
-      image: discount3,
-      link: "/product",
-    },
-  ];
+  const products = Products.filter((product) => product.imageDiscount);
 
   return (
     <div className="bg-gray-100">
@@ -44,12 +26,12 @@ export default function Carousel() {
         }}
         speed={500}
       >
-        {slides.map((slide) => (
-          <SwiperSlide key={slide.id}>
-            <a href={slide.link}>
+        {products.map((product) => (
+          <SwiperSlide key={product.id}>
+            <a href={product.url}>
               <div className="flex flex-col items-center shadow-md mx-16">
                 <div></div>
-                <img src={slide.image} alt={slide.title} />
+                <img src={product.imageDiscount} alt={product.title} />
               </div>
             </a>
           </SwiperSlide>

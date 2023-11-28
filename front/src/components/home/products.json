@@ -4,6 +4,7 @@
       "title": "phone1",
       "description": "phone1.",
       "image": "/assets/phone1.png",
+      "imageDiscount": "/assets/discount1.png",
       "url": "/phone1"
     },
     {
@@ -25,6 +26,7 @@
       "title": "notebook1",
       "description": "notebook1.",
       "image": "../../assets/notebook1.png",
+      "imageDiscount": "/assets/discount2.png",
       "url": "/notebook1"
     },
     {
@@ -45,6 +47,7 @@
       "id": 7,
       "title": "tablet1",
       "description": "tablet1.",
+      "imageDiscount": "/assets/discount3.png",
       "image": "../../assets/tablet1.png",
       "url": "/tablet1"
     },
