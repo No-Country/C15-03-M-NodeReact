@@ -23,7 +23,7 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="bg-[#6F0571]">
+    <div className="bg-gray-800">
       <nav className=" p-2 flex flex-col items-center  md:mx-10 lg:mx-56">
         <div className="w-full flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold w-20 mr-16">
@@ -61,7 +61,7 @@ export default function Navbar() {
 
             <button className=" p-2">Ingresar</button>
             <Link to="/signup">
-              <button className="bg-[#c047c2] hover:bg-[#a03ba1] p-2 rounded font-bold">
+              <button className="bg-gray-600 hover:bg-gray-500 p-2 rounded font-bold">
                 Registrarse
               </button>
             </Link>
