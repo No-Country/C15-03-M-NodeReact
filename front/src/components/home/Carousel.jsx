@@ -29,8 +29,8 @@ export default function Carousel() {
         {products.map((product) => (
           <SwiperSlide key={product.id}>
             <a href={product.url}>
-              <div className="flex flex-col items-center shadow-md mx-16">
-                <div></div>
+              <div className="hidden md:flex flex-col items-center shadow-md mx-16 md:mt-24 ">
+               
                 <img src={product.imageDiscount} alt={product.title} />
               </div>
             </a>

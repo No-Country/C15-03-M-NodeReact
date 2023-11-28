@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function SignUp() {
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-sm">
+      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-sm mt-20">
         <h2 className="text-2xl font-bold mb-4 text-center">Registrarse</h2>
         <form>
           <div className="mb-4">
@@ -25,12 +25,7 @@ export default function SignUp() {
             </label>
             <input type="email" id="email" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Email" />
           </div>
-          <div className="mb-4">
-            <label htmlFor="address" className="block text-gray-700 text-sm font-bold mb-2">
-              Dirección
-            </label>
-            <input type="text" id="address" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Dirección" />
-          </div>
+          
           <div className="mb-4">
             <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
               Contraseña

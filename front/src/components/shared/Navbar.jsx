@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { RiSearchLine, RiShoppingCartLine } from "react-icons/ri";
+import { Twirl as Hamburger } from "hamburger-react";
 import logoImage from "/assets/logo.png";
 
 export default function Navbar() {
+  const [isOpen, setOpen] = useState(false); // State to control the hamburger menu visibility
+
   const categories = [
     {
       id: 1,
@@ -23,12 +26,13 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="bg-gray-800">
-      <nav className=" p-2 flex flex-col items-center  md:mx-10 lg:mx-56">
+    <div className="bg-gray-800 fixed z-50 w-full">
+      <nav className="p-2 flex flex-col items-center md:mx-10 lg:mx-56">
         <div className="w-full flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold w-20 mr-16">
+          <Link to="/" className="text-2xl font-bold w-20 mr-8 md:mr-16">
             <img src={logoImage} alt="Logo" />
           </Link>
+
           <form className="flex-grow flex items-center mr-10">
             <input
               type="text"
@@ -45,9 +49,9 @@ export default function Navbar() {
             </button>
           </form>
 
-          <div className="flex space-x-4 font-semibold text-white">
+          <div className="hidden md:flex space-x-4 font-semibold text-white">
             <div className="relative group items-center">
-              <button className=" p-2">Categorías</button>
+              <button className="p-2">Categorías</button>
               <div className="dropdown-content hidden absolute bg-white shadow-lg group-hover:block">
                 {categories.map((category) => (
                   <Link key={category.id} to={category.link}>
@@ -63,7 +67,8 @@ export default function Navbar() {
               <button className="p-2">
                 Ingresar
               </button>
-            </Link>               <Link to="/signup">
+            </Link>
+            <Link to="/signup">
               <button className="bg-blue-600 hover:bg-blue-800 p-2 rounded font-bold">
                 Registrarse
               </button>
@@ -72,7 +77,46 @@ export default function Navbar() {
               <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
             </button>
           </div>
+
+          {/* Hamburger Menu */}
+          <div
+            onClick={() => setOpen(!isOpen)}
+            className="z-50 md:hidden mt-2 mr-4"
+          >
+            <Hamburger
+              color="white"
+              size={30}
+              toggled={isOpen}
+              toggle={setOpen}
+            />
+          </div>
         </div>
+
+        {/* Hamburger Menu Content */}
+        <div
+          className={`fixed h-screen w-full bg-black bg-opacity-50 transition-opacity ${
+            isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+          onClick={() => setOpen(false)}
+        ></div>
+        <ul
+          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-gray-800 flex flex-col justify-center  text-white transform ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          } transition duration-300 ease-in-out`}
+        >
+          {categories.map((category) => (
+            <li key={category.id}>
+              <Link
+                to={category.link}
+                onClick={() => setOpen(false)}
+                className="text-4xl transition duration-300 ease-in-out"
+              >
+                {category.name}
+              </Link>
+            </li>
+          ))}
+  
+        </ul>
       </nav>
     </div>
   );
