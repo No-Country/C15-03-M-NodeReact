@@ -9,7 +9,7 @@ export default function HomeCards() {
 
   return (
     <div className="bg-gray-100">
-      <div className="pt-5 mx-40 ">
+      <div className="pt-28 md:pt-5 md:mx-40 ">
       
           <h2 className="text-3xl font-bold text-center mb-6">
             Nuestros Productos

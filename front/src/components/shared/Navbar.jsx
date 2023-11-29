@@ -6,7 +6,7 @@ import logoImage from "/assets/logo.png";
 
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false); // State to control the hamburger menu visibility
-
+  const [isSubmenuOpen, setSubmenuOpen] = useState(false);
   const categories = [
     {
       id: 1,
@@ -85,7 +85,7 @@ export default function Navbar() {
           >
             <Hamburger
               color="white"
-              size={30}
+              size={20}
               toggled={isOpen}
               toggle={setOpen}
             />
@@ -94,28 +94,40 @@ export default function Navbar() {
 
         {/* Hamburger Menu Content */}
         <div
-          className={`fixed h-screen w-full bg-black bg-opacity-50 transition-opacity ${
-            isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+          className={`fixed h-screen w-full bg-black bg-opacity-50 transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
           onClick={() => setOpen(false)}
         ></div>
         <ul
-          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-gray-800 flex flex-col justify-center  text-white transform ${
-            isOpen ? "translate-x-0" : "translate-x-full"
-          } transition duration-300 ease-in-out`}
+          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-gray-800 flex flex-col justify-center  text-white  transform ${isOpen ? "translate-x-0" : "translate-x-full"
+            } transition duration-300 ease-in-out`}
         >
-          {categories.map((category) => (
-            <li key={category.id}>
-              <Link
-                to={category.link}
-                onClick={() => setOpen(false)}
-                className="text-4xl transition duration-300 ease-in-out"
-              >
-                {category.name}
-              </Link>
-            </li>
-          ))}
-  
+          <Link to="/signin">
+            <button onClick={()=> setOpen(!isOpen)} className="p-2">
+              Ingresar
+            </button>
+          </Link>
+          <Link to="/signup">
+            <button onClick={()=> setOpen(!isOpen)} className="bg-blue-600 hover:bg-blue-800 p-2 rounded font-bold">
+              Registrarse
+            </button>
+          </Link>
+          <div className={`relative group items-center`}>
+            <button className="p-2" onClick={() => setSubmenuOpen(!isSubmenuOpen)}>
+              Categorías
+            </button>
+            <div className={`dropdown-content ${isSubmenuOpen ? "block" : "hidden"} absolute bg-white shadow-lg group-focus:block z-50`}>
+              {categories.map((category) => (
+                <Link key={category.id} to={category.link}>
+                  <button className="block px-4 py-2 text-gray-800 focus:bg-gray-100">
+                    {category.name}
+                  </button>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+
         </ul>
       </nav>
     </div>
