@@ -99,7 +99,7 @@ export default function Navbar() {
           onClick={() => setOpen(false)}
         ></div>
         <ul
-          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-gray-800 flex flex-col justify-center  text-white  transform ${isOpen ? "translate-x-0" : "translate-x-full"
+          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-gray-800 flex flex-col pt-32 text-white text-xl transform ${isOpen ? "translate-x-0" : "translate-x-full"
             } transition duration-300 ease-in-out`}
         >
           <Link to="/signin">
@@ -116,10 +116,10 @@ export default function Navbar() {
             <button className="p-2" onClick={() => setSubmenuOpen(!isSubmenuOpen)}>
               Categorías
             </button>
-            <div className={`dropdown-content ${isSubmenuOpen ? "block" : "hidden"} absolute bg-white shadow-lg group-focus:block z-50`}>
+            <div className={`dropdown-content ${isSubmenuOpen ? "block" : "hidden"} absolute bg-white shadow-lg group-hover:block z-50`}>
               {categories.map((category) => (
                 <Link key={category.id} to={category.link}>
-                  <button className="block px-4 py-2 text-gray-800 focus:bg-gray-100">
+                  <button className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
                     {category.name}
                   </button>
                 </Link>
