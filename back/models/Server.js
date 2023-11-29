@@ -2,7 +2,7 @@ const express = require('express')
 const { dbConnection } = require('../config/config.js')
 const bodyParser = require('body-parser')
 
-require('dotenv').config({path:'variables.env'})
+require('dotenv').config({path:'.env'})
  
 class Server{
     constructor(){
