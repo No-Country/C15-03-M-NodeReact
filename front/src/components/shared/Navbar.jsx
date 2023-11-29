@@ -103,12 +103,12 @@ export default function Navbar() {
             } transition duration-300 ease-in-out`}
         >
           <Link to="/signin">
-            <button onClick={()=> setOpen(!isOpen)} className="p-2">
+            <button onClick={() => setOpen(!isOpen)} className="p-2">
               Ingresar
             </button>
           </Link>
           <Link to="/signup">
-            <button onClick={()=> setOpen(!isOpen)} className="bg-blue-600 hover:bg-blue-800 p-2 rounded font-bold">
+            <button onClick={() => setOpen(!isOpen)} className="bg-blue-600 hover:bg-blue-800 p-2 rounded font-bold">
               Registrarse
             </button>
           </Link>
@@ -116,7 +116,7 @@ export default function Navbar() {
             <button className="p-2" onClick={() => setSubmenuOpen(!isSubmenuOpen)}>
               Categorías
             </button>
-            <div className={`dropdown-content ${isSubmenuOpen ? "block" : "hidden"} absolute bg-white shadow-lg group-hover:block z-50`}>
+            <div className={`dropdown-content ${isSubmenuOpen ? "block" : "hidden"} absolute bg-white shadow-lg z-50`}>
               {categories.map((category) => (
                 <Link key={category.id} to={category.link}>
                   <button className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
@@ -126,7 +126,6 @@ export default function Navbar() {
               ))}
             </div>
           </div>
-
 
         </ul>
       </nav>
