@@ -2,40 +2,51 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const Usuario = require('../models/Usuario');
-const Token = require('../models/Token'); // Deberías tener un modelo para almacenar los tokens
+const Token = require('../models/Token');
 
 // Ruta para solicitar restablecimiento de contraseña
 const solicitarReset = async (req, res) => {
   const { email } = req.body;
 
-  // Verificar si el usuario existe
-  const usuario = await Usuario.findOne({ where: { email } });
+  try {
+    // Verificar si el usuario existe
+    const usuario = await Usuario.findOne({ where: { email } });
 
-  if (!usuario) {
-    return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+    if (!usuario) {
+      return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+    }
+
+    const tokenExpiration = new Date();
+    tokenExpiration.setHours(tokenExpiration.getHours() + 1); // Esto establece la expiración en 1 hora
+    
+    const token = jwt.sign({ userId: usuario.id }, 'LLAVESECRETA', { expiresIn: '1h' });
+    await Token.create({ userId: usuario.id, token, expiresIn: tokenExpiration });
+
+    // Configuración del servidor de correo (Gmail en este caso)
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'crisezelol@gmail.com',
+        pass: 'ufhr lbee cyde imas',
+      },
+    });
+
+    const resetUrl = `https://localhost:3001/password/reset${token}`;
+    const mensajeCorreo = `Haz clic en el siguiente enlace para restablecer tu contraseña: ${resetUrl}`;
+
+    await transporter.sendMail({
+      from: 'crisezelol@gmail.com',
+      to: email, // Usa el correo proporcionado en la solicitud POST
+      subject: 'Restablecimiento de Contraseña',
+      text: mensajeCorreo,
+    });
+
+    res.json({ mensaje: 'Se ha enviado un correo electrónico con instrucciones para restablecer la contraseña' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: 'Error al solicitar restablecimiento de contraseña' });
   }
-
-  // Generar un token único y guardarlo en la base de datos
-  const token = jwt.sign({ userId: usuario.id }, 'LLAVESECRETA', { expiresIn: '1h' });
-  await Token.create({ userId: usuario.id, token });
-
-  // Enviar un correo electrónico al usuario con el enlace de restablecimiento
-  const transporter = nodemailer.createTransport({
-    // Configuración del servidor de correo
-  });
-
-  const resetUrl = `http://tu-sitio-web/reset-contrasena/${token}`;
-  const mensajeCorreo = `Haz clic en el siguiente enlace para restablecer tu contraseña: ${resetUrl}`;
-
-  await transporter.sendMail({
-    to: email,
-    subject: 'Restablecimiento de Contraseña',
-    text: mensajeCorreo,
-  });
-
-  res.json({ mensaje: 'Se ha enviado un correo electrónico con instrucciones para restablecer la contraseña' });
 };
-
 // Ruta para validar y cambiar la contraseña
 const resetPassword = async (req, res) => {
   const { token } = req.params;

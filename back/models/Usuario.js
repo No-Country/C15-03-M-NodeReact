@@ -1,6 +1,6 @@
 // nombre, apellido, password , correo, pais, estado, ciudad, codigoPostal,
 const Sequelize = require('sequelize')
-const {db} = require("../dataBase/db.js")
+const { db} = require("../dataBase/db.js")
 const bcrypt = require('bcrypt-nodejs')
  
 const Usuarios = db.define('usuarios',{
@@ -86,7 +86,8 @@ const Usuarios = db.define('usuarios',{
                 msg:'El ciudad no puede estar vacio'
             }
         }
-    }
+    },
+    
 },{
     hooks:{
         beforeCreate:(user)=>{

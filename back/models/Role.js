@@ -1,8 +1,5 @@
 
-// Importing Sequelize module
 const Sequelize = require('sequelize')
-
-// Importing database configuration
 const {db} = require("../dataBase/db.js")
 
 // Defining Role model

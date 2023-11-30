@@ -9,6 +9,7 @@ const dbConnection = async() =>{
     try{
         require('../models/Usuario.js')
         require('../models/Role.js')
+        require('../models/Token.js')
         await db.authenticate()
         db.sync()
         console.log("Conectado a la base de datos")

@@ -8,15 +8,18 @@ const esRoleValido = async(rol= '')=>{
         throw new Error(`El role ${rol} no esta registrado en la base de datos`)
     }
 }
-const esEmailValido = async(correo = '') =>{
-    const existeEmail = await Usuarios.findOne({correo})
+const esEmailValido = async (correo = '') => {
+    const existeEmail = await Usuarios.findOne({
+        where: {
+            email: correo
+        }
+    });
 
-    if (existeEmail){
-        
-         throw new Error("El correo ya esta registrado")
-        
+    if (existeEmail) {
+        throw new Error("El correo ya está registrado");
     }
-}
+};
+
 
 
 module.exports = {
