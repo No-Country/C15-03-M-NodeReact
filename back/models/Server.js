@@ -2,13 +2,13 @@ const express = require('express')
 const { dbConnection } = require('../config/config.js')
 const bodyParser = require('body-parser')
 
-require('dotenv').config({path:'variables.env'})
+require('dotenv').config({path:'.env'})
  
 class Server{
     constructor(){
         this.app = express()
-        this.PORT = process.env.PORT || 5000
-        this.host = process.env.HOST || '0.0.0.0'
+        this.PORT = process.env.PORT || 3001
+        this.host = process.env.HOST || 'localhost'
         this.paths = {
             appRoutes:"/",
         }

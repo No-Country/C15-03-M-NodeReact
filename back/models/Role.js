@@ -1,16 +1,11 @@
 
-
-// Importing Sequelize module
 const Sequelize = require('sequelize')
-
-// Importing database configuration
 const {db} = require("../dataBase/db.js")
 
 // Defining Role model
 const Role = db.define('role',{
     role: {
         type: Sequelize.STRING,
-        allowNull: true,
         unique: true,
         validate: {
             notEmpty: {

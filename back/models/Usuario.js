@@ -1,6 +1,6 @@
 // nombre, apellido, password , correo, pais, estado, ciudad, codigoPostal,
 const Sequelize = require('sequelize')
-const {db} = require("../dataBase/db.js")
+const { db} = require("../dataBase/db.js")
 const bcrypt = require('bcrypt-nodejs')
  
 const Usuarios = db.define('usuarios',{
@@ -86,7 +86,8 @@ const Usuarios = db.define('usuarios',{
                 msg:'El ciudad no puede estar vacio'
             }
         }
-    }
+    },
+    
 },{
     hooks:{
         beforeCreate:(user)=>{
@@ -95,10 +96,10 @@ const Usuarios = db.define('usuarios',{
     }
 })
 // metodo para comparar las contraseña
-Usuarios.prototype.validPassword=function (password){
-    return bcrypt.compareSync(password,this.password);
+Usuarios.prototype.validPassword = async function (password){
+    return await bcrypt.compare(password,this.password);
 }
-Usuarios.prototype.hashPassword = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null );
+Usuarios.prototype.hashPassword = async function(password) {
+    return await bcrypt.hash(password, bcrypt.genSaltSync(10), null );
 }
 module.exports = Usuarios;
