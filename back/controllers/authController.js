@@ -16,47 +16,38 @@ const crearUsuario = async (req, res) => {
 };
 
 const autenticarUsuario = async (req, res, next) => {
-  const {
-    email,
-    password
-  } = req.body;
+  const { email, password } = req.body;
 
   try {
     const usuario = await Usuarios.findOne({
-      where: {
-        email: email
-      }
+      where: { email: email }
     });
 
     if (!usuario) {
-      return res.status(400).json({
-        mensaje: 'Ese usuario no existe'
-      });
+      return res.status(400).json({ mensaje: 'Ese usuario no existe' });
     }
 
-    if (!usuario.validPassword(password)) {
-      return res.status(400).json({
-        msg: 'Contraseña incorrecta'
-      });
+    const isPasswordCorrect = await bcrypt.compare(password, usuario.contrasena);
+
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ msg: 'Contraseña incorrecta' });
     }
 
-    const token = jwt.sign({
-      email: usuario.email,
-      nombre: usuario.nombre,
-      id: usuario.id // Usar 'id' en lugar de '_id'
-    }, 'LLAVESECRETA', {
-      expiresIn: "1h"
-    });
+    const token = jwt.sign(
+      {
+        email: usuario.email,
+        nombre: usuario.nombre,
+        id: usuario.id // Usar 'id' en lugar de '_id'
+      },
+      'LLAVESECRETA',
+      { expiresIn: '1h' }
+    );
 
-    res.json({
-      token
-    });
+    res.json({ token });
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({
-      msg: 'Error al autenticar usuario'
-    });
+    res.status(500).json({ msg: 'Error al autenticar usuario' });
   }
 };
 

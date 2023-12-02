@@ -52,44 +52,48 @@ const resetPassword = async (req, res) => {
   const { token } = req.params;
   const { nuevaContrasena } = req.body;
 
-  // Verificar si el token es válido
-  const tokenDB = await Token.findOne({ where: { token } });
+  try {
+    // Verificar si el token es válido
+    const tokenDB = await Token.findOne({ where: { token } });
 
-  if (!tokenDB || jwt.verify(token, 'LLAVESECRETA')) {
-    return res.status(400).json({ mensaje: 'Token inválido o expirado' });
+    if (!tokenDB) {
+      return res.status(400).json({ mensaje: 'Token inválido o expirado' });
+    }
+
+    jwt.verify(token, 'LLAVESECRETA'); // Intentar verificar el token
+
+    // Si la verificación es exitosa, continuar con la lógica para cambiar la contraseña
+    const usuario = await Usuario.findByPk(tokenDB.userId);
+    const hashedContrasena = await bcrypt.hash(nuevaContrasena, 10);
+    await usuario.update({ contrasena: hashedContrasena });
+    await tokenDB.destroy();
+
+    res.json({ mensaje: 'Contraseña restablecida con éxito' });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ mensaje: 'Token inválido o expirado' });
   }
-
-  // Cambiar la contraseña del usuario
-  const usuario = await Usuario.findByPk(tokenDB.userId);
-  const hashedContrasena = await bcrypt.hash(nuevaContrasena, 10);
-
-  await usuario.update({ contrasena: hashedContrasena });
-
-  // Eliminar el token de la base de datos después de usarlo
-  await tokenDB.destroy();
-
-  res.json({ mensaje: 'Contraseña restablecida con éxito' });
-}
+};
 
 
 const updatePassword = async (req, res) => {
   try {
     // Paso 1: Validar la solicitud
-    const { userId, oldPassword, newPassword } = req.body;
+    const { email, oldPassword, newPassword } = req.body;
 
-    if (!userId || !oldPassword || !newPassword) {
+    if (!email || !oldPassword || !newPassword) {
       return res.status(400).json({ mensaje: 'Faltan datos en la solicitud' });
     }
 
     // Paso 2: Buscar al usuario en la base de datos
-    const usuario = await Usuario.findByPk(userId);
+    const usuario = await Usuario.findOne({ where: { email } });
 
     if (!usuario) {
       return res.status(404).json({ mensaje: 'Usuario no encontrado' });
     }
 
     // Paso 3: Verificar la contraseña antigua
-    const isPasswordCorrect = await bcrypt.compare(oldPassword, usuario.contrasena);
+    const isPasswordCorrect = await bcrypt.compare(oldPassword, usuario.password);
 
     if (!isPasswordCorrect) {
       return res.status(400).json({ mensaje: 'La contraseña antigua es incorrecta' });

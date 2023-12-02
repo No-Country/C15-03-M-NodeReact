@@ -36,7 +36,7 @@ router.post('/signin',[
 router.post('/password/reset', solicitarReset)
 router.put('/password/reset/:token', resetPassword)
 
-router.put('/password/update',autenticarUsuario, updatePassword)
+router.put('/password/update', updatePassword)
 
 
 
