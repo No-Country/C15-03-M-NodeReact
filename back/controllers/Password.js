@@ -101,7 +101,7 @@ const updatePassword = async (req, res) => {
 
     // Paso 4: Actualizar la contraseña
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-    await usuario.update({ contrasena: hashedNewPassword });
+    await usuario.update({ password: hashedNewPassword });
 
     // Paso 5: Responder con éxito
     return res.json({ mensaje: 'Contraseña actualizada con éxito' });
