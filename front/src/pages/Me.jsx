@@ -1,44 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import crudAxios from '../config/axios';
+import React, { useState } from "react";
+import UserData from "../components/me/UserData";
+import Pedidos from "../components/me/Pedidos";
+import Tab3 from "../components/me/Tab3";
 
 export default function Me() {
-  const navigate = useNavigate();
-  const [userData, setUserData] = useState(null); // State to store the user data
+  const [activeTab, setActiveTab] = useState("UserData");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('x-token');
-        const config = {
-          headers: { 'x-token': token }
-        };
-
-        const res = await crudAxios.get('/me', config);
-        setUserData(res.data); // Store the fetched data in state
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-        // Optionally, handle errors more specifically here
-      }
-    };
-
-    fetchData(); // Call the async function
-  }, []);
-
-  useEffect(() => {
-    if (!localStorage.getItem('x-token')) {
-      navigate('/signin');
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "UserData":
+        return <UserData />;
+      case "Pedidos":
+        return <Pedidos />;
+      case "Tab3":
+        return <Tab3 />;
+      default:
+        return <UserData />;
     }
-  }, [navigate]);
+  };
 
   return (
-    <div>
-    
-        <div>
-          <h2>User Data</h2>
-          <pre>{JSON.stringify(userData, null, 2)}</pre> {/* Display user data */}
-        </div>
-   
+    <div className="pt-24 md:pt-28"> {/* Adjust padding-top to avoid navbar overlap */}
+      <div className="flex justify-center ">
+        <button 
+          className={`px-4 py-2 mx-2 text-sm font-medium ${
+            activeTab === "UserData" ? "border-b-2 border-blue-500 text-blue-500" : "text-gray-500"
+          }`} 
+          onClick={() => setActiveTab("UserData")}
+        >
+          Mis Datos
+        </button>
+        <button 
+          className={`px-4 py-2 mx-2 text-sm font-medium ${
+            activeTab === "Pedidos" ? "border-b-2 border-blue-500 text-blue-500" : "text-gray-500"
+          }`} 
+          onClick={() => setActiveTab("Pedidos")}
+        >
+          Pedidos
+        </button>
+        <button 
+          className={`px-4 py-2 mx-2 text-sm font-medium ${
+            activeTab === "Tab3" ? "border-b-2 border-blue-500 text-blue-500" : "text-gray-500"
+          }`} 
+          onClick={() => setActiveTab("Tab3")}
+        >
+          Tab 3
+        </button>
+      </div>
+      <div className="tab-content p-4">
+        {renderTabContent()}
+      </div>
     </div>
   );
 }

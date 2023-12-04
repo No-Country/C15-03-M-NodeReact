@@ -119,12 +119,13 @@ export default function Navbar() {
                     >
                       Perfil
                     </Link>
-                    <button
+                    <a
+                      
                       onClick={handleLogout}
                       className="p-2 hover:bg-gray-200 rounded text-start"
                     >
                       Salir
-                    </button>
+                    </a>
                   </div>
                 </div>
               </>
@@ -192,7 +193,8 @@ export default function Navbar() {
                   >
                     Perfil
                   </Link>
-                  <Link
+                  <a
+                    
                     onClick={() => {
                       handleLogout();
                       setShowProfileSubmenu(!showProfileSubmenu);
@@ -200,7 +202,7 @@ export default function Navbar() {
                     className="p-2"
                   >
                     Salir
-                  </Link>
+                  </a>
                 </div>
               </div>
             </>
@@ -249,7 +251,11 @@ export default function Navbar() {
               >
                 Notebooks
               </Link>
-              <Link onClick={() => setOpen(false)} to="/tablets" className="p-2">
+              <Link
+                onClick={() => setOpen(false)}
+                to="/tablets"
+                className="p-2"
+              >
                 Tablets
               </Link>
             </div>
