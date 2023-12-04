@@ -4,6 +4,7 @@ const { isValidEmail, isValidRole, authorizeRoles } = require("../helpers/dbVali
 const { createUser, login, getAllUsers, deleteUser, updateUser, getUserById, getUserProfile, updateProfile, checking } = require("../controllers/authController");
 const { validarCampos } = require("../middleware/validarCampos");
 const { isAuthenticated } = require("../middleware/isAuthenticated");
+const { upload, uploadImage } = require("../helpers/subirImg");
 
 const router = Router()
 
@@ -30,8 +31,6 @@ router.route("/me").get(isAuthenticated, getUserProfile);
 router.route("/me/update").put(isAuthenticated, updateProfile);
 
 
-
-
 router.get('/admin/users',
 isAuthenticated,
 authorizeRoles("ADMIN_ROLE"),
@@ -43,5 +42,7 @@ router
   .get(isAuthenticated, authorizeRoles("ADMIN_ROLE"), getUserById)
   .put(isAuthenticated, authorizeRoles("ADMIN_ROLE"), updateUser)
   .delete(isAuthenticated, authorizeRoles("ADMIN_ROLE"), deleteUser);
+
+router.post('/upload/:id' ,isAuthenticated ,upload.single('file'), uploadImage);
 
 module.exports = router
