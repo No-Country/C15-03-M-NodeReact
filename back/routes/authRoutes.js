@@ -43,6 +43,6 @@ router
   .put(isAuthenticated, authorizeRoles("ADMIN_ROLE"), updateUser)
   .delete(isAuthenticated, authorizeRoles("ADMIN_ROLE"), deleteUser);
 
-router.post('/upload/:id' ,isAuthenticated ,upload.single('file'), subirImg);
+router.post('/upload/:id' ,isAuthenticated ,upload.single('file'), uploadImage);
 
 module.exports = router
