@@ -18,27 +18,23 @@ export default function Navbar() {
 
   const navigate = useNavigate();
 
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
 
-  useEffect(()=>{
-    const consultarApi = async() =>{
+  useEffect(() => {
+    const consultarApi = async () => {
       try {
- 
-    
-        const res = await crudAxios.get('/category') 
-        
-       setCategories(res.data)
-        
-      } catch (error) {
-        console.log(error)
-        return []
-      } 
- 
-    }
-    consultarApi()
-  },[])
+        const res = await crudAxios.get("/category");
 
-  console.log(categories)
+        setCategories(res.data);
+      } catch (error) {
+        console.log(error);
+        return [];
+      }
+    };
+    consultarApi();
+  }, []);
+
+  console.log(categories);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("x-token");
@@ -85,23 +81,17 @@ export default function Navbar() {
               </button>
               <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
                 {/* The submenu div now remains visible when hovering over the links */}
-                
-                {
-                  categories.map((category) => (
-                
-                <Link 
-                  key={category.id}
-                  onClick={() => setOpen(false)}
-                  to={`product/get/${category.slug}`}
-                  className="p-2 hover:bg-gray-200 rounded"
-                >
-                  {category.nombre}
-                </Link>
 
-                    
-                  ))
-                }
-               
+                {categories.map((category) => (
+                  <Link
+                    key={category.id}
+                    onClick={() => setOpen(false)}
+                    to={`product/get/${category.slug}`}
+                    className="p-2 hover:bg-gray-200 rounded"
+                  >
+                    {category.nombre}
+                  </Link>
+                ))}
               </div>
             </div>
 
@@ -121,7 +111,6 @@ export default function Navbar() {
                       Perfil
                     </Link>
                     <a
-                      
                       onClick={handleLogout}
                       className="p-2 hover:bg-gray-200 rounded text-start"
                     >
@@ -136,7 +125,7 @@ export default function Navbar() {
                 <Link className="p-2" to="/signin">
                   Ingresar
                 </Link>
-                <Link className="p-2" to="/signup">
+                <Link className="p-2 bg-indigo-600 hover:bg-indigo-700 rounded" to="/signup">
                   Registrarse
                 </Link>
               </>
@@ -189,9 +178,8 @@ export default function Navbar() {
                 >
                   <Link
                     onClick={() => {
-                    
-                      setOpen(false)
-                      setShowProfileSubmenu(false)
+                      setOpen(false);
+                      setShowProfileSubmenu(false);
                     }}
                     to="/me"
                     className="p-2 my-2"
@@ -199,7 +187,6 @@ export default function Navbar() {
                     Perfil
                   </Link>
                   <a
-                    
                     onClick={() => {
                       handleLogout();
                       setShowProfileSubmenu(false);
@@ -216,9 +203,7 @@ export default function Navbar() {
             <>
               <Link
                 onClick={() => {
-                    
-                  setOpen(false)
-                  
+                  setOpen(false);
                 }}
                 className="p-2"
                 to="/signin"
@@ -227,9 +212,7 @@ export default function Navbar() {
               </Link>
               <Link
                 onClick={() => {
-                    
-                  setOpen(false)
-                 
+                  setOpen(false);
                 }}
                 className="p-2"
                 to="/signup"
@@ -250,29 +233,19 @@ export default function Navbar() {
                 showSubmenu ? "block" : "hidden"
               } flex flex-col font-bold`}
             >
-              {
-                  categories.map((category) => (
-                
-                <Link 
+              {categories.map((category) => (
+                <Link
                   key={category.id}
-
                   onClick={() => {
-                    
-                    setOpen(false)
-                    setShowSubmenu(false)
+                    setOpen(false);
+                    setShowSubmenu(false);
                   }}
-
-
-
                   to={`product/get/${category.slug}`}
                   className="p-2 hover:bg-gray-200 rounded"
                 >
                   {category.nombre}
                 </Link>
-
-                    
-                  ))
-                }
+              ))}
             </div>
           </div>
         </ul>
