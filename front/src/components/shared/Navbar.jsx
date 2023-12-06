@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RiSearchLine, RiShoppingCartLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa6";
+import crudAxios from "../../config/axios";
 
 import { Twirl as Hamburger } from "hamburger-react";
 import logoImage from "/assets/logo.png";
@@ -17,23 +18,27 @@ export default function Navbar() {
 
   const navigate = useNavigate();
 
-  const categories = [
-    {
-      id: 1,
-      name: "Celulares",
-      link: "/category/celulares",
-    },
-    {
-      id: 2,
-      name: "Notebooks",
-      link: "/category/notebooks",
-    },
-    {
-      id: 3,
-      name: "Tablets",
-      link: "/category/tablets",
-    },
-  ];
+  const [categories, setCategories] = useState([])
+
+  useEffect(()=>{
+    const consultarApi = async() =>{
+      try {
+ 
+    
+        const res = await crudAxios.get('/category') 
+        
+       setCategories(res.data)
+        
+      } catch (error) {
+        console.log(error)
+        return []
+      } 
+ 
+    }
+    consultarApi()
+  },[])
+
+  console.log(categories)
 
   useEffect(() => {
     const storedToken = localStorage.getItem("x-token");
@@ -80,27 +85,23 @@ export default function Navbar() {
               </button>
               <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
                 {/* The submenu div now remains visible when hovering over the links */}
-                <Link
+                
+                {
+                  categories.map((category) => (
+                
+                <Link 
+                  key={category.id}
                   onClick={() => setOpen(false)}
-                  to="/celulares"
+                  to={`product/get/${category.slug}`}
                   className="p-2 hover:bg-gray-200 rounded"
                 >
-                  Celulares
+                  {category.nombre}
                 </Link>
-                <Link
-                  onClick={() => setOpen(false)}
-                  to="/notebooks"
-                  className="p-2 hover:bg-gray-200 rounded"
-                >
-                  Notebooks
-                </Link>
-                <Link
-                  onClick={() => setOpen(false)}
-                  to="/tablets"
-                  className="p-2 hover:bg-gray-200 rounded"
-                >
-                  Tablets
-                </Link>
+
+                    
+                  ))
+                }
+               
               </div>
             </div>
 

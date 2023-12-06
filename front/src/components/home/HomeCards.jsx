@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import products from '../../services/productsData.json';
 
 export default function HomeCards() {
   // State to track quantity of each product
-  const [quantities, setQuantities] = useState(products.reduce((acc, product) => {
-    acc[product.id] = 0;
-    return acc;
-  }, {}));
+  // const [quantities, setQuantities] = useState(products.reduce((acc, product) => {
+  //   acc[product.id] = 0;
+  //   return acc;
+  // }, {}));
 
-  // Function to increment quantity
-  const incrementQuantity = (id) => {
-    setQuantities({
-      ...quantities,
-      [id]: quantities[id] + 1
-    });
-  };
+  // // Function to increment quantity
+  // const incrementQuantity = (id) => {
+  //   setQuantities({
+  //     ...quantities,
+  //     [id]: quantities[id] + 1
+  //   });
+  // };
 
   // Function to decrement quantity
   const decrementQuantity = (id) => {
@@ -26,6 +26,34 @@ export default function HomeCards() {
       });
     }
   };
+
+  const [products,setProducts] = useState([])
+  const navigate  = useNavigate()
+  const{slug} = useParams() 
+
+
+
+  useEffect(()=>{
+    const consultarApi = async() =>{
+   
+        const link =slug ? '/get/' +slug : ''
+  
+        console.log(slug)
+      try {
+        const res = await crudAxios.get(`/product${link}`) 
+        setProducts(
+res.data
+)
+        
+      } catch (error) {
+        return []
+      } 
+    }
+    consultarApi()
+    
+  },[]) 
+
+
 
   return (
     <div className="">
