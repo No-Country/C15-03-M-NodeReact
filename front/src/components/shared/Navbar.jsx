@@ -188,7 +188,11 @@ export default function Navbar() {
                   } flex flex-col font-bold`}
                 >
                   <Link
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                    
+                      setOpen(false)
+                      setShowProfileSubmenu(false)
+                    }}
                     to="/me"
                     className="p-2 my-2"
                   >
@@ -198,7 +202,7 @@ export default function Navbar() {
                     
                     onClick={() => {
                       handleLogout();
-                      setShowProfileSubmenu(!showProfileSubmenu);
+                      setShowProfileSubmenu(false);
                     }}
                     className="p-2"
                   >
@@ -211,14 +215,22 @@ export default function Navbar() {
             // Guest user view
             <>
               <Link
-                onClick={() => setOpen(!isOpen)}
+                onClick={() => {
+                    
+                  setOpen(false)
+                  
+                }}
                 className="p-2"
                 to="/signin"
               >
                 Ingresar
               </Link>
               <Link
-                onClick={() => setOpen(!isOpen)}
+                onClick={() => {
+                    
+                  setOpen(false)
+                 
+                }}
                 className="p-2"
                 to="/signup"
               >
@@ -238,27 +250,29 @@ export default function Navbar() {
                 showSubmenu ? "block" : "hidden"
               } flex flex-col font-bold`}
             >
-              <Link
-                onClick={() => setOpen(false)}
-                to="/celulares"
-                className="p-2 my-2"
-              >
-                Celulares
-              </Link>
-              <Link
-                onClick={() => setOpen(false)}
-                to="/notebooks"
-                className="p-2 mb-2"
-              >
-                Notebooks
-              </Link>
-              <Link
-                onClick={() => setOpen(false)}
-                to="/tablets"
-                className="p-2"
-              >
-                Tablets
-              </Link>
+              {
+                  categories.map((category) => (
+                
+                <Link 
+                  key={category.id}
+
+                  onClick={() => {
+                    
+                    setOpen(false)
+                    setShowSubmenu(false)
+                  }}
+
+
+
+                  to={`product/get/${category.slug}`}
+                  className="p-2 hover:bg-gray-200 rounded"
+                >
+                  {category.nombre}
+                </Link>
+
+                    
+                  ))
+                }
             </div>
           </div>
         </ul>
