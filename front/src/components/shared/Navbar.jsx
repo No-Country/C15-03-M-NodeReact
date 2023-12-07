@@ -51,7 +51,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-gray-800 fixed z-50 w-full">
+    <div className="bg-indigo-950 fixed z-50 w-full">
       <nav className="p-2 items-center md:mx-10 lg:mx-40">
         <div className="max-w-[1200px] mx-auto flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold w-20 mr-8 md:mr-16">
@@ -157,7 +157,7 @@ export default function Navbar() {
           onClick={() => setOpen(false)}
         ></div>
         <ul
-          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-gray-800 flex flex-col pt-32 text-white text-xl transform ${
+          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-indigo-950 flex flex-col pt-32 text-white text-xl transform ${
             isOpen ? "translate-x-0" : "translate-x-full"
           } transition duration-300 ease-in-out`}
         >
