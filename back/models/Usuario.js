@@ -1,13 +1,14 @@
 // nombre, apellido, password , correo, pais, estado, ciudad, codigoPostal,
 const Sequelize = require('sequelize')
-const { db} = require("../dataBase/db.js")
-const bcrypt = require('bcrypt-nodejs')
+const {db} = require("../dataBase/db.js")
+const bcrypt = require('bcrypt')
  
 const Usuarios = db.define('usuarios',{
     id:{
-        type:Sequelize.INTEGER,
+        type:Sequelize.UUID,
         primaryKey:true,
-        autoIncrement: true
+        allowNull:false,
+        defaultValue: Sequelize.UUIDV4,
     },
     nombre:{
         type: Sequelize.STRING(50),
@@ -62,7 +63,7 @@ const Usuarios = db.define('usuarios',{
     },
     pais:{
         type:Sequelize.STRING,
-        defaultValue:0,
+        allowNull:false,
         validate:{
             notEmpty:{
                 msg:'El pais no puede estar vacio'
@@ -71,7 +72,7 @@ const Usuarios = db.define('usuarios',{
     },
     estado:{
         type:Sequelize.STRING,
-        defaultValue:0,
+        allowNull:false,
         validate:{
             notEmpty:{
                 msg:'El estado no puede estar vacio'
@@ -80,14 +81,13 @@ const Usuarios = db.define('usuarios',{
     },
     ciudad:{
         type:Sequelize.STRING,
-        defaultValue:0,
+        allowNull:false,
         validate:{
             notEmpty:{
                 msg:'El ciudad no puede estar vacio'
             }
         }
-    },
-    
+    }
 },{
     hooks:{
         beforeCreate:(user)=>{
@@ -96,10 +96,10 @@ const Usuarios = db.define('usuarios',{
     }
 })
 // metodo para comparar las contraseña
-Usuarios.prototype.validPassword = async function (password){
-    return await bcrypt.compare(password,this.password);
+Usuarios.prototype.validPassword=function (password){
+    return bcrypt.compareSync(password,this.password);
 }
-Usuarios.prototype.hashPassword = async function(password) {
-    return await bcrypt.hash(password, bcrypt.genSaltSync(10), null );
+Usuarios.prototype.hashPassword = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null );
 }
 module.exports = Usuarios;

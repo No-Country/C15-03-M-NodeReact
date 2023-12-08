@@ -2,7 +2,6 @@
 const Sequelize = require('sequelize')
 const {db} = require("../dataBase/db.js")
  
-const { v4: uuidv4 } = require('uuid');
 const Productos = require('./Producto.js')
 const Usuarios = require('./Usuario.js')
  
@@ -11,7 +10,7 @@ const Pedidos = db.define('pedidos',{
         type:Sequelize.UUID,
         primaryKey:true,
         allowNull:false,
-        defaultValue: uuidv4(),
+        defaultValue: Sequelize.UUIDV4,
     },
     direccion:{
         type: Sequelize.STRING(50),
