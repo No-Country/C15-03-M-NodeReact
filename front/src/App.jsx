@@ -16,6 +16,7 @@ import Me from "./pages/Me";
 import Footer from "./components/shared/Footer";
 import { CRMContext, CRMProvider } from "./components/context/CRMcontext";
 import ProductPage from "./pages/productsPage";
+import Checkout from "./pages/checkout";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -47,6 +48,7 @@ function AnimatedRoutes() {
           <Route path="/me" element={<Me />} />
           <Route path="/product/get/:slug" element={<Home />} />
           <Route path="/product/:id" element={<ProductPage/>} /> 
+          <Route path="/checkout" element={<Checkout/>} /> 
           {/* Add more routes as needed */}
         </Routes>
       </motion.div>
