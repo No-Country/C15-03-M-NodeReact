@@ -18,7 +18,7 @@ const limits = {
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null,  path.join(__dirname, '../../front/public/uploads/productos/'));
+    cb(null,  path.join(__dirname, '../../front/public/uploads/perfil/'));
   },
   filename: function(req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -39,7 +39,7 @@ const uploadImage = async (req, res, next) => {
       return res.status(400).json({ error: 'No se subió ningún archivo'});
     }
     const relativePath = path.relative(projectRoot, req.file.path);
-    const shortPath = relativePath.replace('front\\public\\uploads\\productos\\', '')
+    const shortPath = relativePath.replace('front\\public\\uploads\\perfil\\', '')
     user.imagen = shortPath;
     await user.save();
     console.log('imagen cargada')
