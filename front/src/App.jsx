@@ -12,9 +12,14 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Me from "./pages/Me";
+import Cart from "./pages/Cart";
 
 import Footer from "./components/shared/Footer";
 import { CRMContext, CRMProvider } from "./components/context/CRMcontext";
+
+import { CartProvider } from "./components/context/CartContext";
+
+
 import ProductPage from "./pages/productsPage";
 import Checkout from "./pages/checkout";
 
@@ -47,8 +52,9 @@ function AnimatedRoutes() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/me" element={<Me />} />
           <Route path="/product/get/:slug" element={<Home />} />
-          <Route path="/product/:id" element={<ProductPage/>} /> 
-          <Route path="/checkout" element={<Checkout/>} /> 
+          <Route path="/product/:id" element={<ProductPage />} /> 
+          <Route path="/cart" element={<Cart />} /> 
+          <Route path="/checkout" element={<Checkout />} /> 
           {/* Add more routes as needed */}
         </Routes>
       </motion.div>
@@ -71,6 +77,7 @@ export default function App() {
 
   return (
     <CRMProvider value={[auth, setAuth]}>
+      <CartProvider>
       <Router>
         <Navbar />
         <div className="min-h-screen bg-gray-100">
@@ -78,6 +85,7 @@ export default function App() {
         </div>
         <Footer />
       </Router>
+      </CartProvider>
     </CRMProvider>
   );
 }
