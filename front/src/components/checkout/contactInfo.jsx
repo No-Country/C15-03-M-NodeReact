@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import data from './localidad.json'
+import data from "./localidad.json";
+import crudAxios from "../../config/axios";
 
 function ContactInfo() {
   const {
@@ -13,18 +14,17 @@ function ContactInfo() {
   const [provincias, setProvincias] = useState([]);
   const [localidades, setLocalidades] = useState([]);
   const [focusedField, setFocusedField] = useState(null);
-  const [addressOption, setAddressOption] = useState("sameAddress"); 
-
+  const [addressOption, setAddressOption] = useState("sameAddress");
 
   const [newAddress, setNewAddress] = useState({
     direccion: "",
     provincia: "",
     localidad: "",
     codigoPostal: "",
-    
   });
 
- 
+
+
   const [nombreFocused, setNombreFocused] = useState(false);
   const [apellidoFocused, setApellidoFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
@@ -34,13 +34,45 @@ function ContactInfo() {
   const [codigoPostalFocused, setCodigoPostalFocused] = useState(false);
   const [telefonoFocused, setTelefonoFocused] = useState(false);
 
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const res = await crudAxios.get("/me");
+        setUserData(res.data);
+        console.log(userData);
+      } catch (error) {
+        console.error("Error al obtener datos del usuario:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []); // El array vacío indica que se ejecutará solo una vez
+
+  useEffect(() => {
+    if (userData) {
+      // Establecer los valores en los campos del formulario
+      setValue("nombre", userData.nombre || "");
+      setValue("apellido", userData.apellido || "");
+      setValue("email", userData.email || "");
+      setValue("adress", userData.adress || "");
+      setValue("provincia", userData.provincia || "");
+      setValue("localidad", userData.localidad || "");
+      setValue("codigoPostal", userData.codigoPostal || "");
+      setValue("phone", userData.telefono || "");
+    }
+  }, [userData, setValue]);
+
   useEffect(() => {
     if (data && data.provincias) {
       setProvincias(data.provincias);
     } else {
       console.log("La respuesta no contiene datos de provincias");
     }
-   }, []); // El array vacío indica que se ejecutará solo una vez 
+  }, []); // El array vacío indica que se ejecutará solo una vez
+
+
 
   const handleProvinciaChange = (e) => {
     setValue("provincia", e.target.value);
@@ -84,10 +116,10 @@ function ContactInfo() {
 
   return (
 
-    <div className="container mx-auto pt-10 pl-5">
+    <div className="container mx-auto pt-10 pl-2">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-2 gap-4"
+        className="grid grid-cols-2 gap-6"
       >
 
         {/*Nombre */}
@@ -114,6 +146,7 @@ function ContactInfo() {
               ? "-translate-y-2 text-xs text-gray-900"
               : "translate-y-2"
               }`}
+              
           > 
             Nombre
           </label>
@@ -156,7 +189,7 @@ function ContactInfo() {
 
         <div className="relative z-0 px-2 w-full group">
           <input
-            {...register("mail", { required: true, pattern: /^\S+@\S+$/i })}
+            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
             type="email"
             id="email"
             className={`h-12 text-[18px]text-10 bg-gray-50 border py-55-rem border-gray-300
@@ -182,9 +215,11 @@ function ContactInfo() {
           </label>
         </div>
 
+
+
         <div className="relative z-0 px-2 w-full group">
           <input
-            {...register("direccion", { required: true })}
+            {...register("adress", { required: true })}
             type="adress"
             id="adress"
             className={`h-12 text-[18px]text-10 bg-gray-50 border py-55-rem border-gray-300
@@ -251,6 +286,7 @@ function ContactInfo() {
           </div>
 
           {/* Localidad */}
+          <div className="relative z-0 px-2 w-full group">
           <select
             {...register("localidad", { required: true })}
             id="localidad"
@@ -282,6 +318,7 @@ function ContactInfo() {
           >
             Localidad
           </label>
+          </div>
         </div>
 
         {/*Código Postal */}
@@ -293,10 +330,10 @@ function ContactInfo() {
             type="codigoPostal"
             id="codigoPostal"
             className={`h-12 text-[18px]text-10 bg-gray-50 border py-55-rem border-gray-300
-              text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
-              dark:bg-gray-100 dark:border-gray-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder-transparent`}
+              text-gray-100 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5
+              dark:bg-gray-100 dark:border-gray-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-blue-500 placeholder-transparent`}
             onFocus={(e) => {
-              handleFocus("email");
+              handleFocus("codigoPostal");
               e.target.placeholder = "";
               setCodigoPostalFocused(true);
             }}

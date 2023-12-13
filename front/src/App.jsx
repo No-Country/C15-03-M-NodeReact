@@ -13,13 +13,9 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Me from "./pages/Me";
 import Cart from "./pages/Cart";
-
 import Footer from "./components/shared/Footer";
 import { CRMContext, CRMProvider } from "./components/context/CRMcontext";
-
 import { CartProvider } from "./components/context/CartContext";
-
-
 import ProductPage from "./pages/productsPage";
 import Checkout from "./pages/checkout";
 
