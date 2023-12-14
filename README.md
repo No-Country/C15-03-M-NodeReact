@@ -34,7 +34,8 @@ Acerca del Proyecto
 
 TechZone es un Sistema de E-commerce <b>orientado a ofrecer una interfaz práctica e intuitiva</b>. Éste sitio web destaca por su simpleza en la selección y en la compra, dando así una mayor integración con el cliente.</br>
 
-Con TechZone, puedes cargar al carrito cada artículo desde la lista de productos, desde la página de producto, la posibilidad de modificar las cantidades de cada producto, e incluso eliminar el artículo, la practicidad lo es todo en nuestro sistema. Además tiene integración con pasarelas de pagos, en nuestro caso hemos implementado la funcionalidad de STRIPE, dando así seguridad a los clientes.
+Con TechZone, puedes cargar al carrito cada artículo desde la lista de productos, desde la página de producto, la posibilidad de modificar las cantidades de cada producto, e incluso eliminar el artículo, la practicidad lo es todo en nuestro sistema. Además tiene integración con pasarelas de pagos, en nuestro caso hemos implementado la funcionalidad de STRIPE, dando así seguridad a los clientes.</br>
+
 <strong>¡Con TechZone tu web e-commerce es más sencilla y fácil de usar, tus clientes te lo agradecerán!</strong>
 Nuestra aplicación puede mejorar la rentabilidad y la eficiencia operativa de tu negocio, además te permitirá tener mayor tiempo libre para realizar otras actividades.
 
