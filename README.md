@@ -9,7 +9,7 @@
 <h1>Bienvenidos a TechZone</h1></div>
 <div>
   <p>
-    <strong>Diseñamos una página web de e-commerce para una pequeña empresa</strong>. Ofrecemos un diseño elegante y acorde a las necesidades de un ecommerce actual, con todas las funcionalidades necesarias para que la experiencia de usuario sea lograda y efectiva. En éste proyecto se aplica la funcionalidad para la venta de productos de computación y celulares, siendo prefectamente adaptable a cualquier rubro.
+    <strong>Diseñamos una página web de e-commerce para una pequeña empresa</strong>. Ofrecemos un diseño elegante y acorde a las necesidades de un ecommerce actual, con todas las funcionalidades necesarias para que la experiencia de usuario sea lograda y efectiva. En éste proyecto se aplica la funcionalidad para la venta de productos de computación y celulares, siendo perfectamente adaptable a cualquier rubro.
   </p>
     <div align='center'>
     <a href="https://nocountry-vite.vercel.app/"
@@ -34,8 +34,8 @@ Acerca del Proyecto
 
 TechZone es un Sistema de E-commerce <b>orientado a ofrecer una interfaz práctica e intuitiva</b>. Éste sitio web destaca por su simpleza en la selección y en la compra, dando así una mayor integración con el cliente.</br>
 
-Con TechZone, puedes rastrear cada artículo en tu inventario, recibir alertas en tiempo real y generar informes detallados con facilidad, ayudando a eliminar el desorden, la confusión y el uso de planillas manuales, hojas de Excel o blocks de notas.
-<strong>¡Contrata TechZone hoy mismo y lleva tu empresa al siguiente nivel!</strong>
+Con TechZone, puedes cargar al carrito cada artículo desde la lista de productos, desde la página de producto, la posibilidad de modificar las cantidades de cada producto, e incluso eliminar el artículo, la practicidad lo es todo en nuestro sistema. Además tiene integración con pasarelas de pagos, en nuestro caso hemos implementado la funcionalidad de STRIPE, dando así seguridad a los clientes.
+<strong>¡Con TechZone tu web e-commerce es más sencilla y fácil de usar, tus clientes te lo agradecerán!</strong>
 Nuestra aplicación puede mejorar la rentabilidad y la eficiencia operativa de tu negocio, además te permitirá tener mayor tiempo libre para realizar otras actividades.
 
 <h1> Tecnologias Usadas
