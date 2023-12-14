@@ -28,7 +28,7 @@
 <!-- ABOUT THE PROJECT -->
 <br>
 <h1> 
-<img src="" width="18px">
+<!--img src="" width="18px"-->
 Acerca del Proyecto
 </h1>
 
