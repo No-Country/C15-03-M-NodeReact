@@ -9,6 +9,7 @@ import logoImage from "/assets/logo.png";
 import { CRMContext } from "../../components/context/CRMcontext";
 import { CartContext } from "../../components/context/CartContext";
 import CartDropDown from "../../components/shared/CartDropDown"; // Import the CartDropdown component
+import { useForm } from "../../hooks/useForm/useForm";
 
 export default function Navbar() {
   const [auth, setAuth] = useContext(CRMContext);
@@ -17,6 +18,10 @@ export default function Navbar() {
   const [showProfileSubmenu, setShowProfileSubmenu] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
 
+  //CAMBIOS EN SEARCH
+  const { formState, onInputChange } = useForm({
+    search: "",
+  });
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
 
@@ -66,15 +71,19 @@ export default function Navbar() {
     };
   }, []);
 
+  //CAMBIOS EN NAVBAR
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (formState.search.length < 1) return navigate("/");
+
+    navigate(`/search?termino=${formState.search}`);
+  };
+
   const handleCartClick = (e) => {
-    e.stopPropagation(); // Prevent the click event from propagating to the document
-    if (auth.isAuthenticated) {
-      setShowCartDropdown(!showCartDropdown);
-    } else {
+    if (!auth.isAuthenticated) {
       navigate("/signin");
     }
   };
-
   const handleCartClickHamburger = (e) => {
     if (auth.isAuthenticated) {
       navigate("/cart");
@@ -84,19 +93,25 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-indigo-950 fixed z-50 w-full  ">
+    <div className="bg-indigo-950 fixed z-50 w-full">
       <nav className="p-2 items-center md:mx-10 lg:mx-40">
         <div className="max-w-[1200px] mx-auto flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold w-20 mr-8 md:mr-16">
             <img src={logoImage} alt="Logo" />
           </Link>
-
-          <form className="flex-grow flex items-center mr-10">
+          {/* CAMBIOS EN EL SEARCH */}
+          <form
+            className="flex-grow flex items-center mr-10"
+            onSubmit={handleSearch}
+          >
             <input
               type="text"
               placeholder="Buscar..."
               className="px-6 py-2 text-lg rounded-l border border-r-0 focus:outline-none w-full"
               aria-label="Search"
+              name="search"
+              value={formState.search}
+              onChange={onInputChange}
             />
             <button
               type="submit"
@@ -163,16 +178,23 @@ export default function Navbar() {
               </>
             )}
 
-            <button className="p-2 relative" onClick={handleCartClick}>
-              <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
-              {cartItemCount > 0 && (
-                <span className="absolute top-0 right-0 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
-                  {cartItemCount}
-                </span>
-              )}
-            </button>
+<div className={`relative ${auth.isAuthenticated ? 'group' : ''}`}>
+  <button
+    onClick={handleCartClick}
+    className="p-2 flex items-center justify-center"
+  >
+    <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
+    {cartItemCount > 0 && (
+      <span className="absolute top-0 right-0 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+        {cartItemCount}
+      </span>
+    )}
+  </button>
+  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 opacity-0 ${auth.isAuthenticated ? 'group-hover:opacity-100 group-hover:scale-100' : ''} scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none ${auth.isAuthenticated ? 'group-hover:pointer-events-auto' : ''}`}>
+    <CartDropDown />
+  </div>
+</div>
 
-            {showCartDropdown && <CartDropDown />}
           </div>
 
           <button
@@ -201,7 +223,7 @@ export default function Navbar() {
         </div>
 
         <div
-          className={`fixed h-screen w-full bg-black bg-opacity-50 transition-opacity ${
+          className={`md:hidden fixed h-screen w-full  bg-black bg-opacity-50 transition-opacity ${
             isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
           onClick={() => setOpen(false)}

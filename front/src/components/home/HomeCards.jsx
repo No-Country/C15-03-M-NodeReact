@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom"; // Import useNavigate
 import crudAxios from "../../config/axios";
 import { CartContext } from "../../components/context/CartContext";
 
@@ -9,12 +9,14 @@ export default function HomeCards({ dataLoaded }) {
   const { addToCart, increaseQuantity, decreaseQuantity, cartItems } =
     useContext(CartContext);
   const navigate = useNavigate(); // Initialize useNavigate
+  const param = useParams();
 
   useEffect(() => {
     const consultarApi = async () => {
+      if (comp) return;
+      const { slug } = param;
       const link = slug ? "/get/" + slug : "";
 
-      console.log(slug);
       try {
         const res = await crudAxios.get(`/product${link}`);
         setProducts(res.data);
@@ -26,7 +28,26 @@ export default function HomeCards({ dataLoaded }) {
     };
     consultarApi();
     window.scrollTo(0, 0);
-  }, [slug, dataLoaded]);
+  }, [param, dataLoaded]);
+
+  const query = useLocation().search;
+  const comp = useLocation()?.search.length > 0;
+
+  useEffect(() => {
+    const search = {
+      search: query.split("=")[1],
+    };
+
+    const consultarApi = async () => {
+      try {
+        const res = await crudAxios.post("/search", search);
+        setProducts(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    consultarApi();
+  }, [query]);
 
   const handleAddToCart = (product) => {
     if (!localStorage.getItem("x-token")) {
@@ -38,7 +59,7 @@ export default function HomeCards({ dataLoaded }) {
 
   return (
     <div className="">
-      <h2 className="pt-28 md:pt-10 text-[2.3rem] font-[600] text-center mb-6">
+      <h2 className="pt-28 md:pt-10 text-3xl font-bold mb-8 text-center">
         Nuestros productos
       </h2>
 
@@ -85,14 +106,14 @@ export default function HomeCards({ dataLoaded }) {
                     {product.envio ? "Envío gratis " : "Sin envío incluido"}
                   </p>
                 </div>
-                <div className="absolute bottom-6 right-3 font-semibold ">
+                <div className="absolute bottom-6 right-6 lg:right-4 font-semibold ">
                   {cartItems.some((item) => item.id === product.id) ? (
                     <div className="flex items-center">
                       <button
                         className="bg-gray-200 text-indigo-600 px-3 py-1 rounded-md hover:bg-gray-300 min-w-[32px]"
                         onClick={() => decreaseQuantity(product.id)}
                       >
-                      -
+                        -
                       </button>
                       <span className="mx-2">
                         {
