@@ -8,8 +8,6 @@ const { isAuthenticated } = require("../middleware/isAuthenticated");
 const { upload, uploadImage } = require("../helpers/subirImg");
 const {sendProfileImage } = require("../controllers/imageController");
 
-const path = require('path');
-
 const router = Router()
 
 router.post('/signup',[
