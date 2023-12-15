@@ -179,7 +179,7 @@ Puedes comenzar registrandote en nuestro sitio, luego podrás iniciar sesión y 
 <td align='center'>
       <div >
         <a href="https://github.com/Kohler98" target="_blank" rel="author">
-          <img width="110" src="https://avatars.githubusercontent.com/u/109408596?v=4"/>
+          <img width="110" src="https://media.licdn.com/dms/image/D4D35AQFlc1Irhbdvbg/profile-framedphoto-shrink_200_200/0/1692688675714?e=1703210400&v=beta&t=CS1aKHF0Iib4OGXQOM6bHdV2XWb2b-hQr3tGxW8ooug"/>
         </a>
         <a href="https://github.com/Kohler98" target="_blank" rel="author">
           <h4 style="margin-top: 1rem;">Víctor León</br><small>Back-End</small></h4>
