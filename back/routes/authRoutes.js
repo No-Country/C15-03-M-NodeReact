@@ -6,6 +6,9 @@ const { validarCampos } = require("../middleware/validarCampos");
 const { isAuthenticated } = require("../middleware/isAuthenticated");
 
 const { upload, uploadImage } = require("../helpers/subirImg");
+const {sendProfileImage } = require("../controllers/imageController");
+
+const path = require('path');
 
 const router = Router()
 
@@ -44,7 +47,8 @@ router
   .put(isAuthenticated, authorizeRoles("ADMIN_ROLE"), updateUser)
   .delete(isAuthenticated, authorizeRoles("ADMIN_ROLE"), deleteUser);
 
+// Rutas de Imagen de perfil
+router.get('/users/me/profile-image', isAuthenticated, sendProfileImage);
 router.post('/upload/:id', isAuthenticated, upload.single('file'), uploadImage);
 
-
-module.exports = router
+module.exports = router;

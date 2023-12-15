@@ -40,6 +40,7 @@ const uploadImage = async (req, res, next) => {
     }
     const relativePath = path.relative(projectRoot, req.file.path);
     const shortPath = relativePath.replace('front\\public\\uploads\\perfil\\', '')
+    // user.profileImage = shortPath;
     user.imagen = shortPath;
     await user.save();
     console.log('imagen cargada')
