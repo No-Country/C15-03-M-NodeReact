@@ -197,7 +197,7 @@ Puedes comenzar registrandote en nuestro sitio, luego podrás iniciar sesión y 
 <td align='center'>
       <div >
         <a href="https://github.com/facundo000" target="_blank" rel="author">
-          <img width="110" src="https://avatars.githubusercontent.com/u/88353632?v=4"/>
+          <img width="110" src="https://media.licdn.com/dms/image/D4D03AQFFKOnHQXfXAA/profile-displayphoto-shrink_200_200/0/1702333074344?e=1707955200&v=beta&t=BKkWMXOjgCm2hZkasks44H9OXcBlJFGGHJofKEI82wU"/>
         </a>
         <a href="https://github.com/facundo000" target="_blank" rel="author">
           <h4 style="margin-top: 1rem;">Facundo N. Guzmán</br><small>Back-End</small></h4>
