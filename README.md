@@ -157,7 +157,7 @@ Puedes comenzar registrandote en nuestro sitio, luego podrás iniciar sesión y 
     <td align='center'>
       <div >
         <a href="https://github.com/vlas-dev" target="_blank" rel="author">
-          <img width="110" src="https://avatars.githubusercontent.com/u/83783001?v=4"/>
+          <img width="110" src="https://media.licdn.com/dms/image/D4D35AQF2TElXWZS2Cw/profile-framedphoto-shrink_200_200/0/1690675161099?e=1703210400&v=beta&t=JwIKA1qIi2mP2807SmoHbGjC_yXzc_t5JgQ4MPPeKsw)"/>
         </a>
         <a href="https://github.com/vlas-dev" target="_blank" rel="author">
           <h4 style="margin-top: 1rem;">Fabián Musicco</br><small>Front-End</small></h4>
