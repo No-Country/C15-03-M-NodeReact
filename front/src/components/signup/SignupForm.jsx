@@ -26,7 +26,7 @@ export default function SignUp() {
       const { token } = respuesta.data;
       localStorage.setItem("x-token", token);
       setAuth({ token, isAuthenticated: true });
-      navigate("/"); // Redirect to home after successful registration
+      window.location.href = '/'; // Redirect to home after successful registration
     } catch (error) {
       if (error.response && error.response.data.errors) {
         setErrors(error.response.data.errors); // Update the state with the errors

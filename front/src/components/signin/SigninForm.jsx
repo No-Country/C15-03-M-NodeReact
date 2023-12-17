@@ -17,7 +17,7 @@ export default function SignIn() {
       const { token } = res.data;
       localStorage.setItem("x-token", token);
       setAuth({ token, isAuthenticated: true });
-      navigate("/"); // Redirect to home after successful login
+      window.location.href = '/'; // Redirect to home after successful login
     } catch (error) {
       if (error.response && error.response.data.errors) {
         setErrors(error.response.data.errors); // Update the state with the errors

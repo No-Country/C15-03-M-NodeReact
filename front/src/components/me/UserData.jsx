@@ -5,7 +5,7 @@ import { FaCamera } from "react-icons/fa";
 
 
 export default function UserData() {
-  const navigate = useNavigate();
+  
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
@@ -44,11 +44,7 @@ export default function UserData() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (!localStorage.getItem("x-token")) {
-      navigate("/signin");
-    }
-  }, [navigate]);
+
 
   const handleInputChange = (e) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
