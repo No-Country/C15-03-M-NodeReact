@@ -46,7 +46,7 @@ export default function RecoverPassword() {
                             to="/signin"
                             className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-700"
                         >
-                            Volver al inicio de sesión
+                            Volver a Ingresar
                         </Link>
                     </div>
                 </form>
