@@ -85,11 +85,11 @@ export default function MisPublicaciones() {
   }
 
   return (
-    <div className="container mx-auto p-4 w-[450px] md:w-[1000px]">
+    <div className="container mx-auto p-4">
       {isNew || isEditing ? (
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 "
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[550px] md:w-[1000px] "
         >
           <div className="mb-4">
             <h1>Producto</h1>
