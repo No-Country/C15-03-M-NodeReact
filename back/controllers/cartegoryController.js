@@ -3,6 +3,7 @@ const Categorias = require("../models/Categoria");
 
 const crearCategoria = async(req,res=response)=>{
     const {nombre} = req.body
+    
     const categoria = await Categorias.findOne({where:{nombre:nombre.toLocaleLowerCase()}})
     if(categoria){
         return res.status(400).json({
@@ -10,7 +11,10 @@ const crearCategoria = async(req,res=response)=>{
         })
     }
     try {
-        await Categorias.create(nombre.toLocaleLowerCase())
+    
+        await Categorias.create(req.body)
+ 
+         
         res.json({msg:"Categoria creada con exito"});
     } catch (error) {
         res.status(500).json({ msg: "Error al crear categoria" });

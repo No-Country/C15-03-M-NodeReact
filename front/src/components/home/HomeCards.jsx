@@ -1,101 +1,151 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import products from '../../services/productsData.json';
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom"; // Import useNavigate
+import crudAxios from "../../config/axios";
+import { CartContext } from "../../components/context/CartContext";
 
-export default function HomeCards() {
-  // State to track quantity of each product
-  const [quantities, setQuantities] = useState(products.reduce((acc, product) => {
-    acc[product.id] = 0;
-    return acc;
-  }, {}));
+export default function HomeCards({ dataLoaded }) {
+  const [products, setProducts] = useState([]);
+  const { slug } = useParams();
+  const { addToCart, increaseQuantity, decreaseQuantity, cartItems } =
+    useContext(CartContext);
+  const navigate = useNavigate(); // Initialize useNavigate
+  const param = useParams();
 
-  // Function to increment quantity
-  const incrementQuantity = (id) => {
-    setQuantities({
-      ...quantities,
-      [id]: quantities[id] + 1
-    });
-  };
+  useEffect(() => {
+    const consultarApi = async () => {
+      if (comp) return;
+      const { slug } = param;
+      const link = slug ? "/get/" + slug : "";
 
-  // Function to decrement quantity
-  const decrementQuantity = (id) => {
-    if (quantities[id] > 0) {
-      setQuantities({
-        ...quantities,
-        [id]: quantities[id] - 1
-      });
+      try {
+        const res = await crudAxios.get(`/product${link}`);
+        setProducts(res.data);
+        dataLoaded(); // Notify parent component that data is loaded
+      } catch (error) {
+        console.log(error);
+        return [];
+      }
+    };
+    consultarApi();
+    window.scrollTo(0, 0);
+  }, [param, dataLoaded]);
+
+  const query = useLocation().search;
+  const comp = useLocation()?.search.length > 0;
+
+  useEffect(() => {
+    const search = {
+      search: query.split("=")[1],
+    };
+
+    const consultarApi = async () => {
+      try {
+        const res = await crudAxios.post("/search", search);
+        setProducts(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    consultarApi();
+  }, [query]);
+
+  const handleAddToCart = (product) => {
+    if (!localStorage.getItem("x-token")) {
+      navigate("/signin"); // Redirect to /signin if not authenticated
+    } else {
+      addToCart(product);
     }
   };
 
   return (
     <div className="">
-      <h2 className="mt-20 md:mt-5 text-[2.3rem] font-[600] text-center mb-6">
+      <h2 className="pt-28 md:pt-10 text-3xl font-bold mb-8 text-center">
         Nuestros productos
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mx-auto md:pb-20 max-w-[300px] md:max-w-[1200px]">
+
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-auto md:pb-20 max-w-[300px] md:max-w-[1200px]">
         {products.map((product) => (
-          
-            <div key={product.id}  className="relative bg-white rounded-[6px] shadow-md hover:shadow-lg transition duration-300 ease-in-out transform w-[284px] max-w-[284px] h-[469px] max-h-[469px]">
-              <div className="w-[250px] h-[286px] mx-auto flex items-center">
-              <Link to={product.url} key={product.id} className="w-full">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className=" bg-white w-auto h-auto object-cover"
-                />
+          <div
+            key={product.id}
+            className=" relative bg-white rounded shadow-md hover:shadow-lg transition duration-300"
+          >
+            <div className="w-full h-full block">
+              <div className="w-[250px] h-[286px] p-4 mx-auto flex items-center">
+                <Link
+                  to={`/product/${product.id}`}
+                  key={product.id}
+                  className="w-full h-full block"
+                >
+                  <img
+                    src={`/images/products/${product.titulo}.png`}
+                    alt={product.titulo}
+                    className="w-auto h-auto object-cover"
+                  />
                 </Link>
               </div>
+
               <hr className="bg-gray-300" />
               <div className="p-4">
-                {product['mas-vendidos'] ? (
-                  <span className="bg-[#ff7733] text-white rounded-sm px-[5px] py-[1px] uppercase text-[.75rem] font-[600] ">
-                    Más vendido
-                  </span>
-                ) : (
-                  ''
-                )}
-                <h3 className="font-[400] text- text-[.95rem] text-[rgba(0,0,0,.8)]">
-                  {product.titulo}
-                </h3>
-                <div>
-                  {product.descuento.descuento ? (
-                    <p className="line-through text-[rgba(0,0,0,.55)] text-[12px]">
-                      ${product.descuento.antiguo}
-                    </p>
-                  ) : (
-                    ''
-                  )}
+                <Link
+                  to={`/product/${product.id}`}
+                  key={product.id}
+                  className="w-full h-full block"
+                >
+                  <h3 className="text-lg font-semibold mb-32">
+                    {product.titulo}
+                  </h3>
+                </Link>
+                <div className="absolute bottom-5">
                   <div className="flex">
-                    <p className="text-2xl">${product.precio}</p>
-                    {product.descuento.descuento ? (
-                      <p className="text-[#00a650] flex items-center pl-1 text-[.9rem]">
-                        {product.descuento.porcentaje}% OFF
-                      </p>
-                    ) : (
-                      ''
-                    )}
+                    <p className="text-indigo-700 text-xl font-semibold ">
+                      ${product.precio}
+                    </p>
                   </div>
-                </div>
-                <p className="text-[#00a650] font-[600] text-[14px]">
-                  {product.envioGratis ? 'Envío gratis' : 'Sin envío incluido'}
-                </p>
-              </div>
-              
-              {/* Quantity Controls - Positioned at bottom right */}
-              <div className="absolute bottom-2 right-2 flex items-center">
-                <button onClick={() => decrementQuantity(product.id)} className="px-2 py-1 border rounded-l">
-                  -
-                </button>
-                <span className="px-2 py-1 border-t border-b">
-                  {quantities[product.id]}
-                </span>
-                <button onClick={() => incrementQuantity(product.id)} className="px-2 py-1 border rounded-r">
-                  +
-                </button>
-              </div>
 
+                  <p className=" font-semibold text-[14px] mb-16">
+                    {product.envio ? "Envío gratis " : "Sin envío incluido"}
+                  </p>
+                </div>
+                <div className="absolute bottom-6 right-6 lg:right-4 font-semibold ">
+                  {cartItems.some((item) => item.id === product.id) ? (
+                    <div className="flex items-center">
+                      <button
+                        className="bg-gray-200 text-indigo-600 px-3 py-1 rounded-md hover:bg-gray-300 min-w-[32px]"
+                        onClick={() => decreaseQuantity(product.id)}
+                      >
+                        -
+                      </button>
+                      <span className="mx-2">
+                        {
+                          cartItems.find((item) => item.id === product.id)
+                            .quantity
+                        }
+                      </span>
+                      <button
+                        className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-700"
+                        onClick={() => increaseQuantity(product.id)}
+                      >
+                        +
+                      </button>
+
+                      <Link to="/cart">
+                        <button className="bg-indigo-600 text-white px-6 py-2  rounded-md hover:bg-indigo-700 ml-4 mr-3">
+                          Ver Carrito
+                        </button>
+                      </Link>
+                    </div>
+                  ) : (
+                    <button
+                      className="bg-indigo-600 text-white px-16 py-2 rounded-md hover:bg-indigo-700 w-fit"
+                      onClick={() => handleAddToCart(product)}
+                    >
+                      Agregar al carrito
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
-          
+          </div>
         ))}
       </div>
     </div>

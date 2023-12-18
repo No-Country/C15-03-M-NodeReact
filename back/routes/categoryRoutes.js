@@ -13,15 +13,9 @@ validarCampos,
 crearCategoria)
 
 router.get('/',
-isAuthenticated,
-authorizeRoles("ADMIN_ROLE"),
-validarCampos,
 mostrarCategorias)
 
 router.get('/:id',
-isAuthenticated,
-authorizeRoles("ADMIN_ROLE"),
-validarCampos,
 mostrarCategoria)
 
 router.put('/:id',
