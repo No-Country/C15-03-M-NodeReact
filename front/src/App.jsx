@@ -25,6 +25,7 @@ import { CartProvider } from "./components/context/CartContext";
 import ProductPage from "./pages/productsPage";
 import { Checkout } from "./pages/Checkout";
 import crudAxios from "./config/axios";
+import RecoverPassword from "./components/signin/RecoverPassword";
  
  
 
@@ -68,6 +69,7 @@ function AnimatedRoutes() {
           <Route path="/product/:id" element={<ProductPage />} /> 
           <Route path="/cart" element={<Cart setOption={setOption}/>} /> 
           <Route path="/checkout" element={<Checkout options={options} />} /> 
+          <Route path="/RecuperarContrasena" element={<RecoverPassword />} /> 
 
           <Route path="/success" element={<Success />} />
 

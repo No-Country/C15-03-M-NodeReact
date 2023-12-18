@@ -77,6 +77,10 @@ export default function SignIn() {
             >
               ¿No tienes cuenta? Regístrate
             </Link>
+            <Link to="/recuperar-contrasena" className="text-sm text-indigo-600 hover:text-indigo-700">
+              ¿Olvidaste tu contraseña?
+            </Link>
+
           </div>
         </form>
         {errors.length > 0 && (
