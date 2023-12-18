@@ -179,19 +179,19 @@ export default function MisPublicaciones() {
         </form>
       ) : (
         <div>
-         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold ">Lista de Productos</h2>
-          <button
-            onClick={handleAddNew}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded shadow-lg"
-          >
-            Subir Producto
-          </button>
-        </div>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-bold ">Lista de Productos</h2>
+            <button
+              onClick={handleAddNew}
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded shadow-lg"
+            >
+              Subir Producto
+            </button>
+          </div>
 
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <ul>
-              {products.map((product) => (
+              {products.map((product, index) => (
                 <li key={product.id} className="mb-4">
                   <div className="flex items-center justify-between">
                     <Link
@@ -207,9 +207,8 @@ export default function MisPublicaciones() {
                         <h3 className="text-lg font-bold">{product.titulo}</h3>
                         <p className="text-gray-600">${product.precio}</p>
                       </div>
-
                     </Link>
-                    
+
                     <div className="flex items-center space-x-2 text-indigo-600">
                       <button
                         className=""
@@ -234,8 +233,10 @@ export default function MisPublicaciones() {
                         )}
                       </button>
                     </div>
-                    
                   </div>
+                  {index < products.length - 1 && (
+                    <hr className="my-4 border-gray-300" />
+                  )}
                 </li>
               ))}
             </ul>
