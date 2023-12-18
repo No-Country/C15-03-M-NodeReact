@@ -59,7 +59,7 @@ export default function HomeCards({ dataLoaded }) {
 
   return (
     <div className="">
-      <h2 className="pt-28 md:pt-10 text-3xl font-bold mb-8 text-center">
+      <h2 className="pt-40 md:pt-10 text-3xl font-bold mb-8 text-center">
         Nuestros productos
       </h2>
 

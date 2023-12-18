@@ -71,16 +71,17 @@ export default function SignIn() {
             >
               Ingresar
             </button>
+            <div className="flex items-center space-x-16">
             <Link
               to="/signup"
               className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-700"
             >
-              ¿No tienes cuenta? Regístrate
+              ¿No tienes cuenta?
             </Link>
-            <Link to="/recuperar-contrasena" className="text-sm text-indigo-600 hover:text-indigo-700">
-              ¿Olvidaste tu contraseña?
+            <Link to="/recover" className="text-sm font-semibold  ">
+              Olvidé mi contraseña
             </Link>
-
+            </div>
           </div>
         </form>
         {errors.length > 0 && (
