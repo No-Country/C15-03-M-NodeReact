@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import crudAxios from "../../config/axios";
 import { FaRegEdit } from "react-icons/fa";
-import { RiDeleteBin7Line, RiDeleteBin7Fill, } from "react-icons/ri";
-
-
+import { RiDeleteBin7Line, RiDeleteBin7Fill } from "react-icons/ri";
 
 export default function MisPublicaciones() {
+  const [hoveredItemId, setHoveredItemId] = useState(null);
+
+  const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isNew, setIsNew] = useState(false); // State to track if adding a new product
@@ -24,10 +25,13 @@ export default function MisPublicaciones() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setIsLoading(true);
         const res = await crudAxios.get("/product");
         setProducts(res.data);
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchProducts();
@@ -72,8 +76,16 @@ export default function MisPublicaciones() {
     });
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center mt-20 h-screen">
+        <div className="loader"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="container mx-auto p-4 w-[1000px]">
+    <div className="container mx-auto p-4 w-[450px] md:w-[1000px]">
       {isNew || isEditing ? (
         <form
           onSubmit={handleSubmit}
@@ -167,14 +179,15 @@ export default function MisPublicaciones() {
         </form>
       ) : (
         <div>
-          <div className="flex justify-end mb-4">
-            <button
-              onClick={handleAddNew}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Añadir Producto
-            </button>
-          </div>
+         <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold ">Lista de Productos</h2>
+          <button
+            onClick={handleAddNew}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded shadow-lg"
+          >
+            Subir Producto
+          </button>
+        </div>
 
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <ul>
@@ -194,9 +207,10 @@ export default function MisPublicaciones() {
                         <h3 className="text-lg font-bold">{product.titulo}</h3>
                         <p className="text-gray-600">${product.precio}</p>
                       </div>
-                    </Link>
 
-                    <div className="flex items-center space-x-2">
+                    </Link>
+                    
+                    <div className="flex items-center space-x-2 text-indigo-600">
                       <button
                         className=""
                         onClick={() => {
@@ -208,12 +222,19 @@ export default function MisPublicaciones() {
                       </button>
 
                       <button
-                        className=""
+                        className="text-red-500"
                         onClick={() => handleRemove(product.id)}
+                        onMouseEnter={() => setHoveredItemId(product.id)}
+                        onMouseLeave={() => setHoveredItemId(null)}
                       >
-                        <RiDeleteBin7Line />
+                        {hoveredItemId === product.id ? (
+                          <RiDeleteBin7Fill />
+                        ) : (
+                          <RiDeleteBin7Line />
+                        )}
                       </button>
                     </div>
+                    
                   </div>
                 </li>
               ))}
