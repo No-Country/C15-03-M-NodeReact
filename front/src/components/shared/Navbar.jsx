@@ -153,10 +153,10 @@ export default function Navbar() {
         </form>
   
         {/* Desktop Menu and User Controls */}
-        <div className="hidden md:flex space-x-4 font-semibold text-white mx-10">
+        <div className="hidden md:flex  font-semibold text-white mx-10">
           {/* Category Dropdown */}
           <div className="relative group items-center">
-            <button className="p-2 pr-2 flex items-center justify-center gap-2">
+            <button className="p-2 flex items-center justify-center gap-2">
               Categorías <IoIosArrowDown />
             </button>
             <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
@@ -199,11 +199,11 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link className="p-2" to="/signin">
+              <Link className="p-2 mr-2" to="/signin">
                 Ingresar
               </Link>
               <Link
-                className="p-2 bg-indigo-600 hover:bg-indigo-700 rounded"
+                className="p-2 mr-2 bg-indigo-600 hover:bg-indigo-700 rounded"
                 to="/signup"
               >
                 Registrarse
