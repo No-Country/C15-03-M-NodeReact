@@ -5,7 +5,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
 import crudAxios from "../../config/axios";
 import { Twirl as Hamburger } from "hamburger-react";
-import logoImage from "/assets/logo.png";
+import logoImage from "../../../public/assets/logoNav.png";
 import { CRMContext } from "../../components/context/CRMcontext";
 import { CartContext } from "../../components/context/CartContext";
 import CartDropDown from "../../components/shared/CartDropDown"; // Import the CartDropdown component
@@ -93,15 +93,17 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-indigo-950 fixed z-50 w-full">
-      <nav className="p-2 items-center md:mx-10 lg:mx-40">
-        <div className="max-w-[1200px] mx-auto flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold w-20 mr-8 md:mr-16">
-            <img src={logoImage} alt="Logo" />
-          </Link>
+    <div className="bg-blue-950 fixed z-50 w-full">
+      <nav className="p-5 items-center md:mx-10 lg:mx-40 ">
+        <div className="max-w-[100%] mx-auto flex justify-between items-center">
+          <div className="mr-4 ">
+            <Link to="/" className=" items-center">
+              <img src={logoImage} alt="Logo" className="w-[210px]  ml-0 md:-ml-10 md:w-[40%]" />
+            </Link>
+          </div>
           {/* CAMBIOS EN EL SEARCH */}
           <form
-            className="flex-grow flex items-center mr-10"
+            className=" w-[70%]  pr-10 -ml-60 items-center  md:flex hidden"
             onSubmit={handleSearch}
           >
             <input
@@ -122,9 +124,9 @@ export default function Navbar() {
             </button>
           </form>
 
-          <div className="hidden md:flex space-x-4 font-semibold text-white">
+          <div className="hidden md:flex space-x-8 font-semibold text-white">
             <div className="relative group items-center">
-              <button className="p-2 flex items-center justify-center gap-2">
+              <button className="p-2 pr-2 flex items-center justify-center gap-2">
                 Categorías <IoIosArrowDown />
               </button>
               <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
@@ -178,27 +180,27 @@ export default function Navbar() {
               </>
             )}
 
-<div className={`relative ${auth.isAuthenticated ? 'group' : ''}`}>
-  <button
-    onClick={handleCartClick}
-    className="p-2 flex items-center justify-center"
-  >
-    <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
-    {cartItemCount > 0 && (
-      <span className="absolute top-0 right-0 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
-        {cartItemCount}
-      </span>
-    )}
-  </button>
-  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 opacity-0 ${auth.isAuthenticated ? 'group-hover:opacity-100 group-hover:scale-100' : ''} scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none ${auth.isAuthenticated ? 'group-hover:pointer-events-auto' : ''}`}>
-    <CartDropDown />
-  </div>
-</div>
+            <div className={`relative ${auth.isAuthenticated ? 'group' : ''}`}>
+              <button
+                onClick={handleCartClick}
+                className="p-2 -mr-20 flex items-center justify-center"
+              >
+                <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
+                {cartItemCount > 0 && (
+                  <span className="absolute top-0 -right-12 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                    {cartItemCount}
+                  </span>
+                )}
+              </button>
+              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 opacity-0 ${auth.isAuthenticated ? 'group-hover:opacity-100 group-hover:scale-100' : ''} scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none ${auth.isAuthenticated ? 'group-hover:pointer-events-auto' : ''}`}>
+                <CartDropDown />
+              </div>
+            </div>
 
           </div>
 
           <button
-            className="md:hidden text-white mr-6"
+            className="md:hidden text-white -mr-24 mt-1"
             onClick={handleCartClickHamburger}
           >
             <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
@@ -223,16 +225,14 @@ export default function Navbar() {
         </div>
 
         <div
-          className={`md:hidden fixed h-screen w-full  bg-black bg-opacity-50 transition-opacity ${
-            isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+          className={`md:hidden fixed h-screen w-full  bg-black bg-opacity-50 transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
           onClick={() => setOpen(false)}
         ></div>
 
         <ul
-          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-indigo-950 flex flex-col pt-32 text-white text-xl transform ${
-            isOpen ? "translate-x-0" : "translate-x-full"
-          } transition duration-300 ease-in-out`}
+          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-blue-950 flex flex-col pt-32 text-white text-xl transform ${isOpen ? "translate-x-0" : "translate-x-full"
+            } transition duration-300 ease-in-out`}
         >
           {auth.isAuthenticated ? (
             <>
@@ -244,17 +244,17 @@ export default function Navbar() {
                   Mi Cuenta <IoIosArrowDown />
                 </button>
                 <div
-                  className={`${
-                    showProfileSubmenu ? "block" : "hidden"
-                  } flex flex-col font-bold`}
+                  className={`${showProfileSubmenu ? "block" : "hidden"
+                    } flex flex-col font-bold `}
                 >
                   <Link
                     onClick={() => {
                       setOpen(false);
                       setShowProfileSubmenu(false);
+
                     }}
                     to="/me"
-                    className="p-2 my-2"
+                    className="p-2 my-2 hover:bg-indigo-800 rounded"
                   >
                     Perfil
                   </Link>
@@ -264,7 +264,7 @@ export default function Navbar() {
                       handleLogout();
                       setShowProfileSubmenu(false);
                     }}
-                    className="p-2"
+                    className="p-2  hover:bg-indigo-800 rounded"
                   >
                     Salir
                   </a>
@@ -296,15 +296,14 @@ export default function Navbar() {
 
           <div className={`relative group items-center`}>
             <button
-              className="p-2 flex items-center justify-center gap-2"
+              className="p-2 flex items-center justify-center gap-2 "
               onClick={() => setShowSubmenu(!showSubmenu)}
             >
               Categorías <IoIosArrowDown />
             </button>
             <div
-              className={`${
-                showSubmenu ? "block" : "hidden"
-              } flex flex-col font-bold`}
+              className={`${showSubmenu ? "block" : "hidden"
+                } flex flex-col font-bold`}
             >
               {categories.map((category) => (
                 <Link
@@ -314,7 +313,7 @@ export default function Navbar() {
                     setShowSubmenu(false);
                   }}
                   to={`product/get/${category.slug}`}
-                  className="p-2 hover:bg-gray-200 rounded"
+                  className="p-2 hover:bg-indigo-800 rounded"
                 >
                   {category.nombre}
                 </Link>
