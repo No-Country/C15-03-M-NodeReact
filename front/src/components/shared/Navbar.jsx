@@ -107,9 +107,9 @@ export default function Navbar() {
               className="text-white ml-10 mr-4"
               onClick={handleCartClickHamburger}
             >
-              <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
+              <RiShoppingCartLine size={24} aria-label="Shopping Cart" /> 
               {cartItemCount > 0 && (
-                <span className="absolute top-4 right-20 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                <span className="absolute top-6 right-24 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
                   {cartItemCount}
                 </span>
               )}
@@ -211,22 +211,24 @@ export default function Navbar() {
             </>
           )}
   
-          <div className={`relative ${auth.isAuthenticated ? 'group' : ''}`}>
-            <button
-              onClick={handleCartClick}
-              className="p-2 flex items-center justify-center"
-            >
-              <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
-              {cartItemCount > 0 && (
-                <span className="absolute top-0 -right-12 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
-                  {cartItemCount}
-                </span>
-              )}
-            </button>
-            <div className={`absolute top-full left-1/2 transform -translate-x-1/2 opacity-0 ${auth.isAuthenticated ? 'group-hover:opacity-100 group-hover:scale-100' : ''} scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none ${auth.isAuthenticated ? 'group-hover:pointer-events-auto' : ''}`}>
-              <CartDropDown />
-            </div>
-          </div>
+  <div className={`relative ${auth.isAuthenticated ? 'group' : ''}`}>
+  <button
+    onClick={handleCartClick}
+    className="p-2 flex items-center justify-center space-x-2"
+  >
+    <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
+    {auth.isAuthenticated && <IoIosArrowDown />}
+    {cartItemCount > 0 && (
+      <span className="absolute top-0 left-3 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+        {cartItemCount}
+      </span>
+    )}
+  </button>
+  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 opacity-0 ${auth.isAuthenticated ? 'group-hover:opacity-100 group-hover:scale-100' : ''} scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none ${auth.isAuthenticated ? 'group-hover:pointer-events-auto' : ''}`}>
+    <CartDropDown />
+  </div>
+</div>
+
         </div>
   
         {/* Mobile Menu Overlay */}

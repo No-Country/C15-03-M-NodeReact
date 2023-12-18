@@ -25,13 +25,13 @@ export default function Footer() {
           </ul> */}
           </div>
           <div className="mt-4 flex space-x-4">
-            <a href="#" className="hover:text-indigo-400">
+            <a href="#" className="hover:text-indigo-600">
               <FaFacebook size={24} />
             </a>
-            <a href="#" className="hover:text-indigo-400">
+            <a href="#" className="hover:text-indigo-600">
               <FaTwitter size={24} />
             </a>
-            <a href="#" className="hover:text-indigo-400">
+            <a href="#" className="hover:text-indigo-600">
               <FaInstagram size={24} />
             </a>
           </div>
