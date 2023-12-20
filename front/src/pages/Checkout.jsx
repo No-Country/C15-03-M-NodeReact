@@ -7,7 +7,7 @@ import { useForm } from "../hooks/useForm/useForm";
 
 export const Checkout = ({ options }) => {
   const [stripe, setStripe] = useState(null);
-  const { formState, onInputChange } = useForm({
+  const { formState, onInputChange,setState } = useForm({
     nombre: "",
     apellido: "",
     email: "",
@@ -17,6 +17,7 @@ export const Checkout = ({ options }) => {
     line1: "",
     phone: 123456789,
     postal_code: "",
+    productos:""
   });
  
   useEffect(() => {
@@ -45,7 +46,7 @@ export const Checkout = ({ options }) => {
             <StripeElements />
           </div>
           <div className="mt-8">
-            <CheckoutInfo formState={formState}/>
+            <CheckoutInfo formulario={[formState,setState]}/>
           </div>
         </div>
       </Elements>

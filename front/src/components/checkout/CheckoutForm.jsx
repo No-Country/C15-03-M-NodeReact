@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { countries } from "../../config/countries";
 import axios from "axios";
+import { CartContext } from "../context/CartContext";
 
 const CheckoutForm = ({formulario}) => {
-
+  const { cartItems } = useContext(CartContext);
   const [formState,onInputChange] = formulario
   const [states, setStates] = useState([])
   const [cities, setCities] = useState([])
-  
+
+ 
+
   useEffect(()=>{
 
     if(formState.pais.length>0){
@@ -16,7 +19,7 @@ const CheckoutForm = ({formulario}) => {
  
           const res = await axios.get(`https://www.universal-tutorial.com/api/states/${formState.pais}`,{
             headers:{
-              "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJzb3VsaHVkc29ueGRAZ21haWwuY29tIiwiYXBpX3Rva2VuIjoiZFVnM2NuQmpMS0h0X3Ewc3pPZlA1MGc3QlVUMUtPTmVpaGdRNWJ6bXlZZDZQeVJXWHBXR0N4a1ZNWVlTckZTSTlxUSJ9LCJleHAiOjE3MDMxNjA0NTR9.KBb9YU-wox1DNZSytfunyCgbjsAulAzcJBp_wFfzE6g",
+              "Authorization":import.meta.env.VITE_APP_COUNTRY_API,
               "Accept":"application/json"
             }
           })
@@ -43,7 +46,7 @@ const CheckoutForm = ({formulario}) => {
           console.log(formState.estado)
           const res = await axios.get(`https://www.universal-tutorial.com/api/cities/${formState.estado}`,{
             headers:{
-              "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJzb3VsaHVkc29ueGRAZ21haWwuY29tIiwiYXBpX3Rva2VuIjoiZFVnM2NuQmpMS0h0X3Ewc3pPZlA1MGc3QlVUMUtPTmVpaGdRNWJ6bXlZZDZQeVJXWHBXR0N4a1ZNWVlTckZTSTlxUSJ9LCJleHAiOjE3MDMxNjA0NTR9.KBb9YU-wox1DNZSytfunyCgbjsAulAzcJBp_wFfzE6g",
+              "Authorization":import.meta.env.VITE_APP_COUNTRY_API,
               "Accept":"application/json"
             }
           })
