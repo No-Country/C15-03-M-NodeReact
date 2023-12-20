@@ -6,41 +6,6 @@ const multer = require('multer')
 const shortid = require('shortid')
 require('dotenv').config()
 
-const configuracionMulter = {
-  limits : {filesize : 10000},
-  storage:fileStorage = multer.diskStorage({
-      destination:(req,file,next)=>{
-          next(null,__dirname+'/../public/uploads/users/')
-      },
-      filename : (req,file,next) =>{
-          const extension = file.mimetype.split('/')[1]
-          next(null,`${shortid.generate()}.${extension}`)
-      }
-  }),
-  fileFilter(req,file,next){
-      if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/jpg"){
-          //formato valido
-          next(null , true)
-      }else{
-          //formato invalido
-
-          next(new Error('Formato no valido'), false)
-      }
-  }
-}
-
-const upload = multer(configuracionMulter).single('imagen')
-
-//subir archivo
-
-const subirArchivo = (req,res,next)=>{
-  upload(req,res,function(error){
-      if(error){
-          res.json({mensaje:error})
-      }
-      return next()
-  })
-}
 const createUser = async(req, res = response) => {
     const usuario = req.body
     try {
@@ -49,7 +14,7 @@ const createUser = async(req, res = response) => {
           msg:'Usuario creado con exito'
         })
     } catch (error) {
-      console.log(error)
+ 
     }
  
 }
@@ -80,7 +45,7 @@ const getAllUsers = async(req, res) =>{
       const usuarios = await Usuarios.findAll();
       res.json(usuarios);
     } catch(err) {
-      console.error(err);
+ 
       res.status(500).json({ msg: "Error al obtener usuarios" });
     }
 }
@@ -95,7 +60,7 @@ const getUserById = async(req,res)=>{
       res.status(404).json({ msg: "Usuario no encontrado" });
     }
   } catch(err) {
-    console.log(err);
+ 
     res.status(500).json({ msg: "Error al obtener usuario" })
   }
 }

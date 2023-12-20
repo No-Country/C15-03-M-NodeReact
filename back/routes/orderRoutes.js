@@ -2,38 +2,36 @@ const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middleware/validarCampos");
 const { isAuthenticated } = require("../middleware/isAuthenticated");
-const { crearProducto, mostrarProductos, mostrarProducto, filtrarProducto, editarProducto, eliminarProducto, subirArchivo } = require("../controllers/productController");
 const { authorizeRoles } = require("../helpers/dbValidators");
+const { createOrder, getOrders, getOrder, editOrder, deleteOrder } = require("../controllers/orderController");
 const router = Router()
 
 router.post('/crear',
 isAuthenticated,
-authorizeRoles("ADMIN_ROLE"),
-subirArchivo,
 validarCampos,
-crearProducto)
+createOrder)
 
 router.get('/',
-mostrarProductos)
-
-router.get('/get/:slug',
-filtrarProducto)
+isAuthenticated,
+validarCampos,
+getOrders)
 
 router.get('/:id',
-mostrarProducto)
-
+isAuthenticated,
+validarCampos,
+getOrder)
 
 router.put('/:id',
 isAuthenticated,
-authorizeRoles("ADMIN_ROLE"),
-subirArchivo,
 validarCampos,
-editarProducto)
+editOrder)
 
 router.delete('/:id',
 isAuthenticated,
 authorizeRoles("ADMIN_ROLE"),
 validarCampos,
-eliminarProducto)
+deleteOrder)
 
-module.exports = router
+
+
+module.exports = router;

@@ -52,6 +52,11 @@ const Productos = db.define('productos',{
         allowNull:true,
         defaultValue:false,
     },
+    porcentaje:{
+        type:Sequelize.FLOAT,
+        allowNull:true,
+        defaultValue:0,
+    },
     descuento:{
         type:Sequelize.FLOAT,
         allowNull:true,
@@ -69,7 +74,7 @@ const Productos = db.define('productos',{
 },{
     hooks:{
         beforeCreate:(producto)=>{
-            producto.descuento = producto.precio*(producto.descuento/100)
+            producto.descuento = producto.precio*(producto.porcentaje/100)
         }
     }
 })

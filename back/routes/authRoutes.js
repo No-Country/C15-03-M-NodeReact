@@ -4,10 +4,8 @@ const { isValidEmail, isValidRole, authorizeRoles } = require("../helpers/dbVali
 const { createUser, login, getAllUsers, deleteUser, updateUser, getUserById, getUserProfile, updateProfile, checking } = require("../controllers/authController");
 const { validarCampos } = require("../middleware/validarCampos");
 const { isAuthenticated } = require("../middleware/isAuthenticated");
-
-const { upload, uploadImage } = require("../helpers/subirImg");
-const {sendProfileImage } = require("../controllers/imageController");
-
+const { subirImagenProfile } = require("../helpers/subirImg");
+const { uploadImage } = require("../controllers/imageController");
 const router = Router()
 
 router.post('/signup',[
@@ -33,6 +31,8 @@ router.route("/me").get(isAuthenticated, getUserProfile);
 router.route("/me/update").put(isAuthenticated, updateProfile);
 
 
+
+
 router.get('/admin/users',
 isAuthenticated,
 authorizeRoles("ADMIN_ROLE"),
@@ -46,7 +46,6 @@ router
   .delete(isAuthenticated, authorizeRoles("ADMIN_ROLE"), deleteUser);
 
 // Rutas de Imagen de perfil
-router.get('/users/me/profile-image', isAuthenticated, sendProfileImage);
-router.post('/upload/:id', isAuthenticated, upload.single('file'), uploadImage);
+router.post('/users/me/profile-image', isAuthenticated, subirImagenProfile, uploadImage);
 
-module.exports = router;
+module.exports = router

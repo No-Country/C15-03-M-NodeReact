@@ -2,6 +2,7 @@ const { response } = require("express")
 const Productos = require("../models/Producto")
 const multer = require('multer')
 const shortid = require('shortid')
+const path = require('path');
 const fs = require('fs')
 const Categorias = require("../models/Categoria")
 const configuracionMulter = {
@@ -34,6 +35,7 @@ const upload = multer(configuracionMulter).single('imagen')
 const subirArchivo = (req,res,next)=>{
     upload(req,res,function(error){
         if(error){
+            
             res.json({mensaje:error})
         }
         return next()
@@ -41,14 +43,17 @@ const subirArchivo = (req,res,next)=>{
 }
 const crearProducto = async(req,res=response)=>{
     const producto = req.body
+
+ 
     if(req.file){
         producto.imagen = req.file.filename
     }
+ 
     try {
         await Productos.create(producto)
         res.json({msg:'producto creado con exito'})
     } catch (error) {
-        console.log(error)
+ 
         res.json({msg:'Error al crear el producto'})
         
     }
@@ -64,7 +69,7 @@ const mostrarProductos = async(req,res=response)=>{
 }
 const filtrarProducto = async(req,res=response)=>{
     const {slug} = req.params
-    const consultas = []
+ 
 
     const categoria = await Categorias.findOne({where:{slug:slug}})
 
@@ -82,6 +87,39 @@ const filtrarProducto = async(req,res=response)=>{
  
 }
 const editarProducto = async(req,res=response)=>{
+    const {id} = req.params
+    const newProducto = req.body
+    const producto = await Productos.findByPk(id)
+ 
+    
+ 
+    if( req.file){
+
+        const filename = path.basename(producto.imagen);
+        const imagePath = path.join(__dirname, '..', 'public', 'uploads', 'productos', filename);
+        fs.unlink(imagePath, (err) => {
+          if (err) {
+             
+            return;
+          } 
+ 
+        });
+        newProducto.imagen = req.file.filename
+    }else{
+        newProducto.imagen = producto.imagen
+    }
+ 
+    try {
+        await Productos.update(newProducto,{where:{id:id}})
+        
+        res.json({
+          msg:`Producto actualizados con exito`
+        })
+    } catch (error) {
+        res.status(400).json({
+            msg:'Error al tratar de actualizar'
+        })
+    }
 
 }
 const mostrarProducto = async(req,res=response)=>{
@@ -108,7 +146,7 @@ const eliminarProducto = async(req,res=response)=>{
         
         fs.unlink(imagenAnterioPath,(error)=>{
             if(error){
-                console.log(error)
+ 
             }
             return
         })
@@ -135,5 +173,6 @@ module.exports = {
     editarProducto,
     mostrarProducto,
     eliminarProducto,
-    subirArchivo
+    subirArchivo,
+ 
 }

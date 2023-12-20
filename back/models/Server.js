@@ -14,6 +14,8 @@ class Server{
             productRoutes:"/product",
             orderRoutes:"/order",
             categoryRoutes:"/category",
+            searchRoutes:'/search',
+            paymentRoutes:'/payment',
         }
         //conectar a base de datos
 
@@ -45,6 +47,9 @@ class Server{
         this.app.use(this.paths.authRoutes, require("../routes/authRoutes.js"))
         this.app.use(this.paths.productRoutes, require("../routes/productRoutes.js"))
         this.app.use(this.paths.categoryRoutes, require("../routes/categoryRoutes.js"))
+        this.app.use(this.paths.searchRoutes, require("../routes/searchRoutes.js"))
+        this.app.use(this.paths.paymentRoutes, require("../routes/paymentRoutes.js"))
+        this.app.use(this.paths.orderRoutes, require("../routes/orderRoutes.js"))
  
     }
  
