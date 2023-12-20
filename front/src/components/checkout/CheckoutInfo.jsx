@@ -1,19 +1,19 @@
 import React, { useContext } from 'react';
 import { CartContext } from './../context/CartContext';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
-import { useForm } from '../../hooks/useForm/useForm';
+ 
 
-const CheckoutInfo = () => {
+const CheckoutInfo = ({formState}) => {
   const { cartItems } = useContext(CartContext);
   const stripe = useStripe();
   const elements = useElements();
-  const { formState } = useForm();
+ 
 
   const total = cartItems.reduce((total, item) => total + item.precio * item.quantity, 0);
-
+  const ids = cartItems.map(item=>item.id)
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    console.log(formState)
     if (!stripe || !elements) {
       return;
     }
@@ -26,13 +26,13 @@ const CheckoutInfo = () => {
         return_url: returnUrl,
         payment_method_data: {
           billing_details: {
-            name: `${formState.name} ${formState.lastName}`,
+            name: `${formState.nombre} ${formState.apellido}`,
             email: formState.email,
             address: {
               line1: formState.line1,
-              city: formState.city,
-              state: formState.state,
-              country: formState.country,
+              city: formState.ciudad,
+              state: formState.estado,
+              country: formState.pais,
               postal_code: formState.postal_code,
             },
             phone: formState.phone,
