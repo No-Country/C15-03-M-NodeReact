@@ -12,7 +12,7 @@
     <strong>Diseñamos una página web de e-commerce para una pequeña empresa</strong>. Ofrecemos un diseño elegante y acorde a las necesidades de un ecommerce actual, con todas las funcionalidades necesarias para que la experiencia de usuario sea lograda y efectiva. En éste proyecto se aplica la funcionalidad para la venta de productos de computación y celulares, siendo perfectamente adaptable a cualquier rubro.
   </p>
     <div align='center'>
-    <a href="https://nocountry-vite.vercel.app/"
+    <a href="https://techzone-nocountry.vercel.app/"
      target="_blank">
           <img  src="https://img.shields.io/badge/VER_DEMO-3378FF?style=for-the-badge&logo=vercel&logoColor=%23343B4E"/>
        </a>
@@ -121,7 +121,7 @@ npm run dev
 ```
 
 O simplemente clickea en el link de
-<a href="https://nocountry-vite.vercel.app/" target="_blank">Ver Demo.</a>
+<a href="https://techzone-nocountry.vercel.app/" target="_blank">Ver Demo.</a>
 
 <!-- USAGE EXAMPLES -->
 <h1> Uso
