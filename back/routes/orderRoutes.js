@@ -28,7 +28,6 @@ editOrder)
 
 router.delete('/:id',
 isAuthenticated,
-authorizeRoles("ADMIN_ROLE"),
 validarCampos,
 deleteOrder)
 
