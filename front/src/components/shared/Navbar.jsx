@@ -151,9 +151,35 @@ export default function Navbar() {
             <RiSearchLine size={20} />
           </button>
         </form>
+
+        <div className="hidden md:flex lg:hidden items-center">
+            <button
+              className="text-white ml-10 mr-4"
+              onClick={handleCartClickHamburger}
+            >
+              <RiShoppingCartLine size={24} aria-label="Shopping Cart" /> 
+              {cartItemCount > 0 && (
+                <span className="absolute top-6 right-24 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+            </button>
+  
+            <div
+              onClick={() => setOpen(!isOpen)}
+              className="z-50"
+            >
+              <Hamburger
+                color="white"
+                size={20}
+                toggled={isOpen}
+                toggle={setOpen}
+              />
+            </div>
+          </div>
   
         {/* Desktop Menu and User Controls */}
-        <div className="hidden md:flex  font-semibold text-white mx-10">
+        <div className="hidden lg:flex  font-semibold text-white mx-10">
           {/* Category Dropdown */}
           <div className="relative group items-center">
             <button className="p-2 flex items-center justify-center gap-2">
@@ -233,13 +259,13 @@ export default function Navbar() {
   
         {/* Mobile Menu Overlay */}
         <div
-          className={`md:hidden fixed top-0 h-screen w-full  bg-black bg-opacity-50 transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+          className={`lg:hidden fixed top-0 h-screen w-full  bg-black bg-opacity-50 transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
           onClick={() => setOpen(false)}
         ></div>
   
         {/* Mobile Menu */}
         <ul
-          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-indigo-950 flex flex-col pt-32 text-white text-xl transform ${isOpen ? "translate-x-0" : "translate-x-full"} transition duration-300 ease-in-out`}
+          className={`lg:hidden fixed top-0 right-0 h-screen  px-10 space-y-8 bg-indigo-950 flex flex-col pt-32 text-white text-xl transform ${isOpen ? "translate-x-0" : "translate-x-full"} transition duration-300 ease-in-out`}
         >
           {auth.isAuthenticated ? (
             <>
@@ -320,7 +346,7 @@ export default function Navbar() {
                     setShowSubmenu(false);
                   }}
                   to={`product/get/${category.slug}`}
-                  className="p-2 hover:bg-indigo-800 rounded"
+                  className="p-2 hover:bg-indigo-800 rounded capitalize"
                 >
                   {category.nombre}
                 </Link>
