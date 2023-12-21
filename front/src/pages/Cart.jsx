@@ -23,7 +23,7 @@ export default function CartPage({ setOption }) {
     let cadena = numero.toString();
     let sinPunto = cadena.replace(".", "");
     let entero = parseInt(sinPunto);
-    return parseInt(entero);
+    return parseInt(entero * 100);
   };
 
   const toCheckOut = () => {
