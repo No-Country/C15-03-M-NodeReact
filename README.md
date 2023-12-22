@@ -220,7 +220,7 @@ Puedes comenzar registrandote en nuestro sitio, luego podrás iniciar sesión y 
 <td align='center'>
       <div >
         <a href="https://github.com/CaesARG72" target="_blank" rel="author">
-          <img width="110" src="https://media.licdn.com/dms/image/D4D35AQHRBvAIU3fDTA/profile-framedphoto-shrink_200_200/0/1675260803132?e=1703185200&v=beta&t=aQy-XU2c_3qgh2rM_2xvSHv4J75nTBfxQk3Y25FPJ_g"/>
+          <img width="110" src="https://github.com/No-Country/C15-03-M-NodeReact/blob/Readme/cga_cv.jpg"/>
         </a>
         <a href="https://github.com/CaesARG72" target="_blank" rel="author">
           <h4 style="margin-top: 1rem;">César G. Araujo</br><small>Tester Manual</small></h4>
