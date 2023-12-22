@@ -238,7 +238,7 @@ Puedes comenzar registrandote en nuestro sitio, luego podrás iniciar sesión y 
     <td align='center'>
       <div >
         <a href="https://github.com/JorgeNanni" target="_blank" rel="author">
-          <img width="110" src="https://media.licdn.com/dms/image/D4D35AQGkklcxyRy5gg/profile-framedphoto-shrink_200_200/0/1692901049117?e=1703185200&v=beta&t=Wl0F3hKEwsCMBedLJgFb9O35WPjsXJudZEf9N-hxUHU"/>
+          <img width="110" src="https://github.com/No-Country/C15-03-M-NodeReact/blob/Readme/nanni.jpg"/>
         </a>
         <a href="https://github.com/JorgeNanni" target="_blank" rel="author">
           <h4 style="margin-top: 1rem;">Jorge Nanni</br><small>Tester Manual</small></h4>
