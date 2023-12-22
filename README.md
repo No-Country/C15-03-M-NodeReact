@@ -4,7 +4,7 @@
 <br />
   <div align='center'>
   <a href="https://github.com/No-Country/C15-03-M-NodeReact" target="_blank">
-   <img src="https://github.com/No-Country/C15-03-M-NodeReact/blob/Back/TechZone1.jpg" alt="Banner"/>
+   <img src="https://techzone-nocountry.vercel.app/assets/logoFooter.png" alt="Banner" width="45%" />
   </a>
 <h1>Bienvenidos a TechZone</h1></div>
 <div>
